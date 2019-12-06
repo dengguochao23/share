@@ -1,8 +1,10 @@
 import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
+import router from './route/router'
 import store from './store'
-
+import './element'
+import './common/stylus/index.styl'
+import './common/iconfont.css'
+import App from './App.vue'
 Vue.config.productionTip = false
 
 new Vue({
