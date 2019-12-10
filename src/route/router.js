@@ -7,6 +7,7 @@ import Hot from '../web/hot'
 import Wish from '../web/wish'
 import Shop from '../web/shop'
 import MyHome from '../web/myHome'
+import Help from '../web/help'
 import store from '../store/index'
 
 Vue.use(Router)
@@ -18,7 +19,7 @@ const router = new Router({
       path: '',
       name: 'main',
       component: Main,
-      redirect: '',
+      redirect: '/home',
       meta: {
         requiresAuth: true
       },
@@ -45,18 +46,36 @@ const router = new Router({
           path: '/hot',
           components: {
             box: Hot
+          },
+          meta: {
+            requiresAuth: true
           }
         },
         {
           path: '/wish',
           components: {
             box: Wish
+          },
+          meta: {
+            requiresAuth: true
           }
         },
         {
           path: '/shop',
           components: {
             box: Shop
+          },
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: '/help',
+          components: {
+            box: Help
+          },
+          meta: {
+            requiresAuth: true
           }
         }
       ]

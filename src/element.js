@@ -7,7 +7,6 @@ import {
   Form,
   FormItem,
   Checkbox,
-  Icon,
   Select,
   Option,
   Col,
@@ -20,7 +19,10 @@ import {
   Table,
   TableColumn,
   Dialog,
-  Image
+  Image,
+  Steps,
+  Step,
+  Pagination
 } from 'element-ui'
 
 Vue.component(Button.name, Button)
@@ -28,7 +30,6 @@ Vue.component(Input.name, Input)
 Vue.component(Form.name, Form)
 Vue.component(FormItem.name, FormItem)
 Vue.component(Checkbox.name, Checkbox)
-Vue.component(Icon.name, Icon)
 Vue.component(Select.name, Select)
 Vue.component(Option.name, Option)
 Vue.component(Col.name, Col)
@@ -42,3 +43,6 @@ Vue.component(Table.name, Table)
 Vue.component(TableColumn.name, TableColumn)
 Vue.component(Dialog.name, Dialog)
 Vue.component(Image.name, Image)
+Vue.component(Steps.name, Steps)
+Vue.component(Step.name, Step)
+Vue.component(Pagination.name, Pagination)
