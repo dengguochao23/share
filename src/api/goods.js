@@ -16,6 +16,13 @@ export function addMyGood (good) {
   })
 }
 
+export function getGoodByGid (gid) {
+  instance.defaults.auth = { username: window.localStorage.getItem('token') }
+  return instance.post('/goods/get/good', {
+    'gid': gid
+  })
+}
+
 export function getMyGoods () {
   instance.defaults.auth = { username: window.localStorage.getItem('token') }
   return instance.get(`/goods/get/mygood`)

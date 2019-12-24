@@ -192,7 +192,7 @@
                 width="120">
                 <template slot-scope="scope">
                   <el-button size="mini" @click="selectMyWish(scope.row)" type="text">编辑</el-button>
-                  <el-button size="mini" @click="handleMyGOod(scope.row)" type="text">
+                  <el-button size="mini" @click="handleMyHelp(scope.row)" type="text">
                     {{isShowCancelOrEnable(scope.row)}}
                   </el-button>
                 </template>
@@ -283,10 +283,10 @@
 <script type="text/ecmascript-6">
 import { mapGetters, mapActions } from 'vuex'
 import { checkUser, saveUserInfo } from '../api/user'
-import { getMyWish, upDataMyWish, addMyWish } from '../api/wish'
+import { getMyHelp, upDataMyHelp, addMyHelp, handleMyHelp } from '../api/help'
 import { getAllSubs, addMyGood, getMyGoods, upDataMyGood, handleMyGood } from '../api/goods'
 import { createGoods } from '../common/js/goods'
-import { createWishes } from '../common/js/wish'
+import { createHelps } from '../common/js/help'
 import { Message } from 'element-ui'
 import Tabs from '../components/tabs'
 
@@ -599,14 +599,14 @@ export default {
     },
     // wish部分
     _getMyWishes () {
-      getMyWish().then((res) => {
+      getMyHelp().then((res) => {
         this.wishData = this.normalWishes(res.data)
       })
     },
     normalWishes (data) {
       let temp = []
       data.forEach((d) => {
-        temp.push(createWishes(d))
+        temp.push(createHelps(d))
       })
       return temp
     },
@@ -625,7 +625,7 @@ export default {
             'name': this.wish['name'],
             'info': this.wish['info']
           }
-          addMyWish(wish).then((res) => {
+          addMyHelp(wish).then((res) => {
             Message({
               message: '保存成功',
               type: 'success'
@@ -644,12 +644,34 @@ export default {
             'name': this.wishItem['name'],
             'info': this.wishItem['info']
           }
-          upDataMyWish(wish).then((res) => {
+          upDataMyHelp(wish).then((res) => {
             this.dialogFormWishes = false
             this._getMyWishes()
           })
         }
       })
+    },
+    handleMyHelp (row) {
+      switch (row.status) {
+        case '使用中':
+          handleMyHelp(row.id, 10).then((res) => {
+            Message({
+              message: '撤销成功',
+              type: 'success'
+            })
+            this._getMyWishes()
+          })
+          break
+        case '暂停中':
+          handleMyHelp(row.id, 11).then((res) => {
+            Message({
+              message: '开启成功',
+              type: 'success'
+            })
+            this._getMyWishes()
+          })
+          break
+      }
     },
     ...mapActions([
       'updateUser'

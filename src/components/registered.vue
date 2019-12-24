@@ -14,7 +14,7 @@
       <div class="logo">
         <img width="210px" :src="require('../common/img/logo.png')" alt="">
       </div>
-      <el-form class="form" :model="formData" ref="form" :rules="rules">
+      <el-form class="form" :model="formData" ref="formData" :rules="rules">
         <el-form-item
           prop="email"
           :rules="[
@@ -32,15 +32,15 @@
         </el-form-item>
         <el-form-item>
           <el-col :span="6">
-            <el-input v-model="formData.email" placeholder="幢"></el-input>
+            <el-input v-model="formData.building" placeholder="幢"></el-input>
           </el-col>
           <el-col :span="1">——</el-col>
           <el-col :span="6">
-            <el-input placeholder="单元" v-model="formData.checkPass" autocomplete="off"></el-input>
+            <el-input placeholder="单元" v-model="formData.unit" autocomplete="off"></el-input>
           </el-col>
           <el-col :span="1">——</el-col>
           <el-col :span="6">
-            <el-input placeholder="房" v-model="formData.checkPass" autocomplete="off"></el-input>
+            <el-input placeholder="房" v-model="formData.room" autocomplete="off"></el-input>
           </el-col>
         </el-form-item>
         <el-form-item>
@@ -53,6 +53,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { registers } from '../api/client'
+import { Message } from 'element-ui'
 export default {
   data () {
     return {
@@ -60,7 +62,10 @@ export default {
         email: '',
         pass: '',
         checkpass: '',
-        nickname: ''
+        nickname: '',
+        building: '',
+        unit: '',
+        room: ''
       },
       checked: true,
       flag: false,
@@ -79,8 +84,8 @@ export default {
       if (value === '') {
         callback(new Error('请输入密码'))
       } else {
-        if (this.data.checkPass !== '') {
-          this.$refs.form.validateField('checkPass')
+        if (this.formData.checkPass !== '') {
+          this.$refs.formData.validateField('checkPass')
         }
         callback()
       }
@@ -88,7 +93,7 @@ export default {
     validatePass2 (rule, value, callback) {
       if (value === '') {
         callback(new Error('请再次输入密码'))
-      } else if (value !== this.data.pass) {
+      } else if (value !== this.formData.pass) {
         callback(new Error('两次输入密码不一致!'))
       } else {
         callback()
@@ -97,7 +102,12 @@ export default {
     submitForm (form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
-          console.log('xxxx')
+          registers(this.formData.email, this.formData.pass, 100, this.formData.building, this.formData.unit, this.formData.room).then(() => {
+            this.$router.push('/home')
+          }).catch((e) => {
+            this.$router.push('/welcome')
+            Message.error('这账号有人已经注册了')
+          })
         }
       })
     },

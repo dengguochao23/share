@@ -55,7 +55,7 @@ export function createGoods (data) {
     subsname: data.subs['name'],
     cid: data.subs.content_id,
     content: data.subs.contents.name,
-    user: data.user.nickname,
+    user: data.user,
     fromAdmin: data.from_admin,
     status: data.from_user
   })

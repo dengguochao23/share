@@ -8,6 +8,8 @@ import Wish from '../web/wish'
 import Shop from '../web/shop'
 import MyHome from '../web/myHome'
 import Help from '../web/help'
+import HelpDetail from '../web/help-detail'
+import Drift from '../web/drift'
 import store from '../store/index'
 
 Vue.use(Router)
@@ -73,6 +75,26 @@ const router = new Router({
           path: '/help',
           components: {
             box: Help
+          },
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: '/help/detail/:gid',
+          name: 'helpDetail',
+          components: {
+            box: HelpDetail
+          },
+          props: { box: true },
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: '/drift',
+          components: {
+            box: Drift
           },
           meta: {
             requiresAuth: true

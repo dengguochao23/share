@@ -25,7 +25,7 @@ class Wishes {
   }
 }
 
-export function createWishes (data) {
+export function createHelps (data) {
   return new Wishes({
     time: data.create_time,
     id: data.id,

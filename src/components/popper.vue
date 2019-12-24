@@ -5,14 +5,14 @@
     </div>
     <transition name="popper">
       <div ref="arrow" class="popper__arrow" v-show="disable">
-      <div class="popper_head" ref="head">
-        <slot name="title"></slot>
+        <div class="popper_head" ref="head">
+          <slot name="title"></slot>
+        </div>
+        <div class="poper_body">
+          <slot name="body"></slot>
+        </div>
+        <div ref="triangle" class="triangle"></div>
       </div>
-      <div class="poper_body">
-        <slot name="body"></slot>
-      </div>
-      <div ref="triangle" class="triangle"></div>
-    </div>
     </transition>
   </div>
 </template>
@@ -41,6 +41,7 @@ export default {
   mounted () {
     this.initReference()
     this.initWidth()
+    this.initColor(this.color)
   },
   methods: {
     initReference () {
@@ -51,12 +52,22 @@ export default {
     },
     initWidth () {
       this.$refs.arrow.style.width = this.width + 'px'
+    },
+    initColor (color) {
+      this.$refs.head.style.backgroundColor = color
+      this.$refs.triangle.style.borderColor = `transparent transparent ${color}`
     }
   },
   watch: {
     color (newVal) {
-      this.$refs.head.style.backgroundColor = newVal
-      this.$refs.triangle.style.borderColor = `transparent transparent ${newVal}`
+      this.initColor(newVal)
+    },
+    disable (newVal) {
+      if (newVal) {
+        setTimeout(() => {
+          this.disable = false
+        }, 2000)
+      }
     }
   }
 }
@@ -66,29 +77,35 @@ export default {
   @import "../common/stylus/variable.styl"
   .popper
     position: relative
+
     .popper__reference
       min-width: 40px
+
     .popper__arrow
       min-width: 100px
       position: absolute
-      top :45px
+      top: 45px
       background-color: #FFFFFF;
-      border-bottom-left-radius :4px
-      border-bottom-right-radius :4px
-      box-shadow: 0 2px 12px 0 rgba(0,0,0,.1)
-      z-index :100
+      border-bottom-left-radius: 4px
+      border-bottom-right-radius: 4px
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1)
+      z-index: 100
+
       &.popper-enter-active, &.popper-leave-active
         transition: all 0.3s
+
       &.popper-enter, &.popper-leave-to
-        opacity :0
+        opacity: 0
+
       .popper_head
         min-width: 40px
-        text-align : center
+        text-align: center
         color: white
-        font-size :$font-size-large
-        border-top-left-radius :4px
-        border-top-right-radius :4px
-        padding :5px 15px 5px 15px
+        font-size: $font-size-large
+        border-top-left-radius: 4px
+        border-top-right-radius: 4px
+        padding: 5px 15px 5px 15px
+
       .triangle
         width: 0
         height: 0

@@ -1,11 +1,287 @@
 <template>
-  <div>wish</div>
+  <div class="wish">
+    <div class="wish-container">
+      <p class="title">他人的求助</p>
+      <div class="select">
+        <span style="margin-right: 20px">你可快速选择:</span>
+        <el-select v-model="value" placeholder="请选择" @change="onSelect">
+          <el-option
+            v-for="item in options"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id">
+          </el-option>
+        </el-select>
+      </div>
+      <div class="wish-wrapper">
+        <water-fall>
+          <div class="item">
+            <div class="img">
+              <el-avatar shape="square" :size="160"
+                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+            </div>
+            <div class="type">
+              <span>生活/厨房</span>
+            </div>
+            <p class="name">1</p>
+            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
+            <div class="bottom">
+              <span class="nickname">dengguochao</span>
+              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <el-avatar shape="square" :size="160"
+                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+            </div>
+            <div class="type">
+              <span>生活/厨房</span>
+            </div>
+            <p class="name">2</p>
+            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
+            <div class="bottom">
+              <span class="nickname">dengguochao</span>
+              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <el-avatar shape="square" :size="160"
+                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+            </div>
+            <div class="type">
+              <span>生活/厨房</span>
+            </div>
+            <p class="name">3</p>
+            <div class="info">吃饭吃饭吃</div>
+            <div class="bottom">
+              <span class="nickname">dengguochao</span>
+              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <el-avatar shape="square" :size="160"
+                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+            </div>
+            <div class="type">
+              <span>生活/厨房</span>
+            </div>
+            <p class="name">4</p>
+            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
+            <div class="bottom">
+              <span class="nickname">dengguochao</span>
+              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <el-avatar shape="square" :size="160"
+                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+            </div>
+            <div class="type">
+              <span>生活/厨房</span>
+            </div>
+            <p class="name">5</p>
+            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
+            <div class="bottom">
+              <span class="nickname">dengguochao</span>
+              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <el-avatar shape="square" :size="160"
+                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+            </div>
+            <div class="type">
+              <span>生活/厨房</span>
+            </div>
+            <p class="name">6</p>
+            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
+            <div class="bottom">
+              <span class="nickname">dengguochao</span>
+              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <el-avatar shape="square" :size="160"
+                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+            </div>
+            <div class="type">
+              <span>生活/厨房</span>
+            </div>
+            <p class="name">吃饭</p>
+            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
+            <div class="bottom">
+              <span class="nickname">dengguochao</span>
+              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <el-avatar shape="square" :size="160"
+                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+            </div>
+            <div class="type">
+              <span>生活/厨房</span>
+            </div>
+            <p class="name">吃饭</p>
+            <div class="info">吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
+            <div class="bottom">
+              <span class="nickname">dengguochao</span>
+              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <el-avatar shape="square" :size="160"
+                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+            </div>
+            <div class="type">
+              <span>生活/厨房</span>
+            </div>
+            <p class="name">吃饭</p>
+            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
+            <div class="bottom">
+              <span class="nickname">dengguochao</span>
+              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <el-avatar shape="square" :size="160"
+                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+            </div>
+            <div class="type">
+              <span>生活/厨房</span>
+            </div>
+            <p class="name">吃饭</p>
+            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
+            <div class="bottom">
+              <span class="nickname">dengguochao</span>
+              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <el-avatar shape="square" :size="160"
+                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+            </div>
+            <div class="type">
+              <span>生活/厨房</span>
+            </div>
+            <p class="name">吃饭</p>
+            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
+            <div class="bottom">
+              <span class="nickname">dengguochao</span>
+              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <el-avatar shape="square" :size="160"
+                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+            </div>
+            <div class="type">
+              <span>生活/厨房</span>
+            </div>
+            <p class="name">吃饭</p>
+            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
+            <div class="bottom">
+              <span class="nickname">dengguochao</span>
+              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
+            </div>
+          </div>
+        </water-fall>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
+import WaterFall from '../components/waterfall'
+import { getAllSubs } from '../api/goods'
+import { getAllWish } from '../api/help'
 
+export default {
+  data () {
+    return {
+      selectValue: '',
+      options: [],
+      value: '',
+      totalNum: 5
+    }
+  },
+  created () {
+    this._getAllSubs()
+    this._getAllWish()
+  },
+  methods: {
+    onSelect (val) {
+      console.log(val)
+    },
+    _getAllSubs () {
+      getAllSubs().then((res) => {
+        this.options = res.data
+      })
+    },
+    _getAllWish () {
+      getAllWish().then((res) => {
+        console.log(res.data)
+      })
+    }
+  },
+  components: {
+    WaterFall
+  }
+}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  @import "../common/stylus/index.styl"
+  .wish
+    width: $width-container
+    margin: 0 auto
+    padding-top: 20px
 
+    .wish-container
+      border-top: 5px solid $color-theme
+      background-color: $color-background
+      border-radius: 5px
+      padding: 30px
+      margin-bottom: 100px
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, .12)
+      .title
+        font-size: $font-size-large-xx
+        color: $color-theme
+      .select
+        margin-top :30px
+      .wish-wrapper
+        width :100%
+        margin-top :30px
+        .item
+          width :200px
+          border-radius: 4px
+          border: 1px solid $color-theme
+          box-shadow: 0px 0px 4px #787878
+          .img
+            margin:20px 0px 10px 20px
+          .type
+            width :60%
+          .name
+            width :60%
+            color: $color-theme
+          .info
+            width :60%
+          .bottom
+            width :80%
+            margin :20px auto
+            display:flex
+            justify-content: space-between
+            align-items :center
+            .nickname
+              font-size :$font-size-small
 </style>

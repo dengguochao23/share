@@ -51,12 +51,12 @@
           <el-divider></el-divider>
           <p class="title">热心住户</p>
         </div>
-        <div class="item help">
+        <div class="item help" @click.stop="onWish">
           <i class="iconfont iconbangzhu icon"></i>
           <el-divider></el-divider>
           <p class="title">他人求助</p>
         </div>
-        <div class="item info">
+        <div class="item info" @click.stop="onDrift">
           <i class="iconfont iconxingxing1 icon"></i>
           <el-divider></el-divider>
           <p class="title">我的足迹</p>
@@ -120,6 +120,12 @@ export default {
     onHelp () {
       this.$router.push('/help')
     },
+    onDrift () {
+      this.$router.push('/drift')
+    },
+    onWish () {
+      this.$router.push('/wish')
+    },
     // 进度条展示
     initScroll () {
       this.processScrollTop = this.$refs.study.offsetTop - 300
@@ -127,7 +133,6 @@ export default {
     },
     handleScroll (e) {
       let current = e.target.scrollingElement.scrollTop
-      console.log(current)
       if (this.isShowProcess) {
         return
       }

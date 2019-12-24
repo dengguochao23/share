@@ -22,7 +22,10 @@ import {
   Image,
   Steps,
   Step,
-  Pagination
+  Pagination,
+  Rate,
+  Radio,
+  RadioGroup
 } from 'element-ui'
 
 Vue.component(Button.name, Button)
@@ -46,3 +49,6 @@ Vue.component(Image.name, Image)
 Vue.component(Steps.name, Steps)
 Vue.component(Step.name, Step)
 Vue.component(Pagination.name, Pagination)
+Vue.component(Rate.name, Rate)
+Vue.component(Radio.name, Radio)
+Vue.component(RadioGroup.name, RadioGroup)

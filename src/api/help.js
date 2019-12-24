@@ -1,32 +1,37 @@
 import instance from './base'
 
-export function getMyWish () {
+export function getMyHelp () {
   instance.defaults.auth = { username: window.localStorage.getItem('token') }
-  return instance.get(`/wish/get`)
+  return instance.get(`/help/get`)
 }
 
-export function addMyWish (wish) {
+export function addMyHelp (wish) {
   instance.defaults.auth = { username: window.localStorage.getItem('token') }
-  return instance.post('/wish/add', {
+  return instance.post('/help/add', {
     'sid': wish.sid,
     'name': wish.name,
     'info': wish.info
   })
 }
 
-export function upDataMyWish (wish) {
+export function upDataMyHelp (wish) {
   instance.defaults.auth = { username: window.localStorage.getItem('token') }
-  return instance.post('/wish/update', {
+  return instance.post('/help/update', {
     'id': wish.id,
     'name': wish.name,
     'info': wish.info
   })
 }
 
-export function handleMyGood (id, type) {
+export function handleMyHelp (id, type) {
   instance.defaults.auth = { username: window.localStorage.getItem('token') }
-  return instance.post(`/wish/handle`, {
+  return instance.post(`/help/handle`, {
     'id': id,
     'type': type
   })
+}
+
+export function getAllWish () {
+  instance.defaults.auth = { username: window.localStorage.getItem('token') }
+  return instance.get(`/help/all`)
 }

@@ -14,7 +14,9 @@
         <el-divider></el-divider>
         <el-table
           :data="tableData"
-          style="width: 100%">
+          style="width: 100%"
+          @row-click="onSelect"
+        >
           <el-table-column
             prop="time"
             label="登记日期"
@@ -36,7 +38,7 @@
             width="180">
           </el-table-column>
           <el-table-column
-            prop="user"
+            prop="user.nickname"
             label="用户"
             width="180">
           </el-table-column>
@@ -46,15 +48,15 @@
           </el-table-column>
         </el-table>
         <el-pagination
-          style="text-align: center;margin-top: 20px"
-          background
-          layout="prev, pager, next"
-          :total="totalNum"
-          :page-size = 2
-          @next-click="onNextPage"
-          @prev-click="onPrevPage"
-          @current-change="onCurrentPage"
-        >
+        style="text-align: center;margin-top: 20px"
+        background
+        layout="prev, pager, next"
+        :total="totalNum"
+        :page-size = 2
+        @next-click="onNextPage"
+        @prev-click="onPrevPage"
+        @current-change="onCurrentPage"
+      >
         ></el-pagination>
       </div>
     </div>
@@ -105,6 +107,9 @@ export default {
         temp.push(createGoods(d))
       })
       return temp
+    },
+    onSelect (row) {
+      this.$router.push({ name: 'helpDetail', params: { gid: row.gid } })
     }
   }
 }
@@ -140,4 +145,5 @@ export default {
           justify-content :space-between
           .name
             color :$color-theme
+
 </style>
