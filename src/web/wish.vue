@@ -13,185 +13,20 @@
           </el-option>
         </el-select>
       </div>
-      <div class="wish-wrapper">
-        <water-fall>
-          <div class="item">
+      <div class="wish-wrapper" v-if="wishes.length>0">
+        <water-fall ref="fall">
+          <div class="item" v-for="(item, index) in wishes" :key="index">
             <div class="img">
               <el-avatar shape="square" :size="160"
                          src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
             </div>
             <div class="type">
-              <span>生活/厨房</span>
+              <span>{{item.subsname}}</span>
             </div>
-            <p class="name">1</p>
-            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
+            <p class="name">{{item.name}}</p>
+            <div class="info">{{item.info}}</div>
             <div class="bottom">
-              <span class="nickname">dengguochao</span>
-              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
-            </div>
-          </div>
-          <div class="item">
-            <div class="img">
-              <el-avatar shape="square" :size="160"
-                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
-            </div>
-            <div class="type">
-              <span>生活/厨房</span>
-            </div>
-            <p class="name">2</p>
-            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
-            <div class="bottom">
-              <span class="nickname">dengguochao</span>
-              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
-            </div>
-          </div>
-          <div class="item">
-            <div class="img">
-              <el-avatar shape="square" :size="160"
-                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
-            </div>
-            <div class="type">
-              <span>生活/厨房</span>
-            </div>
-            <p class="name">3</p>
-            <div class="info">吃饭吃饭吃</div>
-            <div class="bottom">
-              <span class="nickname">dengguochao</span>
-              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
-            </div>
-          </div>
-          <div class="item">
-            <div class="img">
-              <el-avatar shape="square" :size="160"
-                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
-            </div>
-            <div class="type">
-              <span>生活/厨房</span>
-            </div>
-            <p class="name">4</p>
-            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
-            <div class="bottom">
-              <span class="nickname">dengguochao</span>
-              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
-            </div>
-          </div>
-          <div class="item">
-            <div class="img">
-              <el-avatar shape="square" :size="160"
-                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
-            </div>
-            <div class="type">
-              <span>生活/厨房</span>
-            </div>
-            <p class="name">5</p>
-            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
-            <div class="bottom">
-              <span class="nickname">dengguochao</span>
-              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
-            </div>
-          </div>
-          <div class="item">
-            <div class="img">
-              <el-avatar shape="square" :size="160"
-                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
-            </div>
-            <div class="type">
-              <span>生活/厨房</span>
-            </div>
-            <p class="name">6</p>
-            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
-            <div class="bottom">
-              <span class="nickname">dengguochao</span>
-              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
-            </div>
-          </div>
-          <div class="item">
-            <div class="img">
-              <el-avatar shape="square" :size="160"
-                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
-            </div>
-            <div class="type">
-              <span>生活/厨房</span>
-            </div>
-            <p class="name">吃饭</p>
-            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
-            <div class="bottom">
-              <span class="nickname">dengguochao</span>
-              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
-            </div>
-          </div>
-          <div class="item">
-            <div class="img">
-              <el-avatar shape="square" :size="160"
-                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
-            </div>
-            <div class="type">
-              <span>生活/厨房</span>
-            </div>
-            <p class="name">吃饭</p>
-            <div class="info">吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
-            <div class="bottom">
-              <span class="nickname">dengguochao</span>
-              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
-            </div>
-          </div>
-          <div class="item">
-            <div class="img">
-              <el-avatar shape="square" :size="160"
-                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
-            </div>
-            <div class="type">
-              <span>生活/厨房</span>
-            </div>
-            <p class="name">吃饭</p>
-            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
-            <div class="bottom">
-              <span class="nickname">dengguochao</span>
-              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
-            </div>
-          </div>
-          <div class="item">
-            <div class="img">
-              <el-avatar shape="square" :size="160"
-                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
-            </div>
-            <div class="type">
-              <span>生活/厨房</span>
-            </div>
-            <p class="name">吃饭</p>
-            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
-            <div class="bottom">
-              <span class="nickname">dengguochao</span>
-              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
-            </div>
-          </div>
-          <div class="item">
-            <div class="img">
-              <el-avatar shape="square" :size="160"
-                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
-            </div>
-            <div class="type">
-              <span>生活/厨房</span>
-            </div>
-            <p class="name">吃饭</p>
-            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
-            <div class="bottom">
-              <span class="nickname">dengguochao</span>
-              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
-            </div>
-          </div>
-          <div class="item">
-            <div class="img">
-              <el-avatar shape="square" :size="160"
-                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
-            </div>
-            <div class="type">
-              <span>生活/厨房</span>
-            </div>
-            <p class="name">吃饭</p>
-            <div class="info">吃饭吃饭吃饭吃饭吃吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭吃饭</div>
-            <div class="bottom">
-              <span class="nickname">dengguochao</span>
+              <span class="nickname">{{item.user.nickname}}</span>
               <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
             </div>
           </div>
@@ -205,23 +40,30 @@
 import WaterFall from '../components/waterfall'
 import { getAllSubs } from '../api/goods'
 import { getAllWish } from '../api/help'
-
+import { createHelps } from '../common/js/help'
 export default {
   data () {
     return {
       selectValue: '',
       options: [],
       value: '',
-      totalNum: 5
+      totalNum: 5,
+      wishes: []
     }
   },
   created () {
-    this._getAllSubs()
     this._getAllWish()
+    this._getAllSubs()
   },
   methods: {
     onSelect (val) {
       console.log(val)
+      const instance = this.$createLoading({
+        $props: {
+          visible: true
+        }
+      })
+      instance.show()
     },
     _getAllSubs () {
       getAllSubs().then((res) => {
@@ -230,8 +72,16 @@ export default {
     },
     _getAllWish () {
       getAllWish().then((res) => {
-        console.log(res.data)
+        this.wishes = this.noramlWish(res.data)
+        console.log(this.wishes)
       })
+    },
+    noramlWish (data) {
+      let temp = []
+      data.forEach((d) => {
+        temp.push(createHelps(d))
+      })
+      return temp
     }
   },
   components: {
@@ -243,11 +93,11 @@ export default {
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "../common/stylus/index.styl"
   .wish
-    width: $width-container
-    margin: 0 auto
     padding-top: 20px
 
     .wish-container
+      margin: 0 auto
+      width: $width-container
       border-top: 5px solid $color-theme
       background-color: $color-background
       border-radius: 5px

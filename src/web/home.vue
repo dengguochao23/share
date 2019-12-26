@@ -159,7 +159,6 @@ export default {
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "../common/stylus/variable.styl"
   .home
-    width: 100%
 
     .slider
       background: $color-theme

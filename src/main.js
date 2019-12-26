@@ -4,9 +4,10 @@ import store from './store'
 import './element'
 import './common/stylus/index.styl'
 import './common/iconfont.css'
+import './register'
 import App from './App.vue'
-Vue.config.productionTip = false
 
+Vue.config.productionTip = false
 new Vue({
   router,
   store,

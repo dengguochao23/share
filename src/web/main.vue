@@ -165,9 +165,8 @@ export default {
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "../common/stylus/variable.styl"
   .main
-    width: 100%
     .head
-      width: 100%
+      width :100vw
       border-bottom: 1px solid $color-background-d
       position: fixed
       top: 0
@@ -285,6 +284,8 @@ export default {
                   text-align: center
 
     .box
+      left :0
+      right :0
+      height :100%
       margin-top :111px
-      overflow :hidden
 </style>
