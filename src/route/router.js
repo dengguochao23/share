@@ -117,7 +117,7 @@ router.beforeEach((to, from, next) => {
       store.dispatch('getUser')
       next()
     } else {
-      // store.dispatch('logOut')
+      store.dispatch('logOut')
       next({
         path: '/welcome',
         query: {

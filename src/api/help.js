@@ -35,3 +35,15 @@ export function getAllWish () {
   instance.defaults.auth = { username: window.localStorage.getItem('token') }
   return instance.get(`/help/all`)
 }
+
+export function getAllWishBySid (sid) {
+  instance.defaults.auth = { username: window.localStorage.getItem('token') }
+  return instance.get(`/help/all/sid=${sid}`)
+}
+
+export function checkMyGood (name) {
+  instance.defaults.auth = { username: window.localStorage.getItem('token') }
+  return instance.post(`/help/check`, {
+    'n': name
+  })
+}

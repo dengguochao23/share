@@ -1,4 +1,4 @@
-import { checkDriftByid, createDrift, cancalDriftByid } from '../../api/drift'
+import { checkDriftByid, createDriftFromHelper, cancalDriftByid } from '../../api/drift'
 export const handle = {
   data () {
     return {
@@ -19,7 +19,7 @@ export const handle = {
   },
   methods: {
     onSubmitReview () {
-      createDrift(this.gid, this.good.name, this.good.user.id, 5).then((res) => {
+      createDriftFromHelper(this.gid, this.good.name, this.good.user.id, 5).then((res) => {
         this.status = 1
         this.step = 1
       })
@@ -53,6 +53,15 @@ export const handle = {
           case 4:
             this.status = 5
             this.step = 0
+            break
+          case 6:
+            this.status = 4
+            this.step = 4
+            break
+          case 7:
+            this.status = 7
+            this.step = 4
+            break
         }
       }).catch((e) => {
         this.status = 0

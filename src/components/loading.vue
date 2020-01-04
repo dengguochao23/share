@@ -29,23 +29,6 @@ export default {
         return ''
       }
     }
-  },
-  methods: {
-    toggle () {
-      if (this.visible) {
-        this.visible = false
-      } else {
-        this.visible = true
-      }
-    }
-  },
-  watch: {
-    visible (val) {
-      console.log(val)
-      if (val) {
-        this.$refs.load.style.overflowY = 'hidden'
-      }
-    }
   }
 }
 </script>
@@ -58,18 +41,17 @@ export default {
     left: 0
     right: 0
     bottom: 0
-    z-index: 2000
-
+    z-index :1000
     .cover
       width: 100%
       height 100%
       background-color: black
       opacity: 0.6
-      z-index: 1
+      z-index: 1001
       position: absolute
       top: 0
       left: 0
-
+      overflow-y :hidden !important
     .loading-container
       position: absolute
       top: 50%
@@ -78,7 +60,7 @@ export default {
       background-color: white
       width: 250px
       height: 150px
-      z-index: 2005
+      z-index: 1002
       border: 5px solid $color-theme
       border-radius :10px
       text-align :center

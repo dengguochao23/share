@@ -9,27 +9,27 @@
                        src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
           </div>
           <div class="name">
-            Hi,dengguochao
+            Hi,{{nickname}}
           </div>
           <div class="room">
-            103幢一单元1502
+            {{room}}
             <el-divider></el-divider>
           </div>
           <div class="detail">
             <div class="item">
-              <p class="num">1</p>
+              <p class="num">{{helps}}</p>
               <p>求助</p>
             </div>
             <div class="item">
-              <p class="num">1</p>
+              <p class="num">{{goods}}</p>
               <p>可借</p>
             </div>
             <div class="item">
-              <p class="num">1</p>
+              <p class="num">{{comment}}</p>
               <p>可评价</p>
             </div>
             <div class="item">
-              <p class="num">1</p>
+              <p class="num">{{count}}</p>
               <p>7豆</p>
             </div>
           </div>
@@ -93,12 +93,33 @@
         </div>
       </div>
     </div>
+    <div class="intro">
+      <div class="intro-container">
+        <header class="head">
+          <p class="title">闲置物品利用率提高</p>
+          <p>申请无门槛，家里没用的物品皆可借出去</p>
+        </header>
+        <section class="content">
+          <div class="left">
+            <p class="title">物业能保障我们什么?</p>
+            <p class="text">物业作为中间层，来保障共享物品更安全，更高效</p>
+            <p class="title">我们需要做什么?</p>
+            <p class="text">只需简单注册，就能分享东西</p>
+            <p class="title">适用人群覆盖面广</p>
+            <p class="text">覆盖东莞、惠州 准入小区均可申请</p>
+          </div>
+          <div class="right">
+            <el-image :src="'https://img1.gtimg.com/house_chengdu/pics/hv1/57/25/2281/148328457.jpg'"></el-image>
+          </div>
+        </section>
+      </div>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import Slider from '../components/slider'
-
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -107,6 +128,29 @@ export default {
       step: 0,
       processScrollTop: ''
     }
+  },
+  computed: {
+    nickname () {
+      return this.userInfo.account || 'sdfsdf'
+    },
+    room () {
+      return this.userInfo.building + '幢' + this.userInfo.unit + '单元' + this.userInfo.room
+    },
+    helps () {
+      return this.userInfo.helps
+    },
+    count () {
+      return this.userInfo.count
+    },
+    comment () {
+      return this.userInfo.comment
+    },
+    goods () {
+      return this.userInfo.goods
+    },
+    ...mapGetters([
+      'userInfo'
+    ])
   },
   mounted () {
     this.$nextTick(() => {
@@ -288,4 +332,30 @@ export default {
               .item
                 font-size :40px
                 line-height: 100px
+    .intro
+      padding :50px 0px
+      .intro-container
+        margin: 0 auto
+        width: $width-container
+        .head
+          width :100%
+          height :100px
+          text-align :center
+          .title
+            font-size :$font-size-large-xx
+            color :$color-theme
+            margin-bottom :15px
+        .content
+          width :100%
+          display :flex
+          justify-content :space-between
+          .left
+            padding :10px
+            .title
+              color :$color-theme
+              font-size :$font-size-large
+              margin-bottom :10px
+            .text
+              margin-bottom :20px
+              color :$color-text-desc
 </style>

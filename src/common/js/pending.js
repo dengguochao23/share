@@ -56,6 +56,10 @@ export default class Pending {
       4: {
         'helper': '对方已拒绝',
         'sharer': '你已拒绝'
+      },
+      7: {
+        'helper': '你已评论',
+        'sharer': '对方已评论'
       }
     }
     return rules[pending][youare]

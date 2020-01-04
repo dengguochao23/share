@@ -56,7 +56,7 @@
               <div class="control">
                 <div class="helper" v-if="item.youare==='helper'">
                   <el-button style="margin: 0 ;width: 100px" v-if="item.pending===1" type="danger">撤销</el-button>
-                  <el-button style="margin: 0 ;width: 100px" v-if="item.pending===6">评价</el-button>
+                  <el-button style="margin: 0 ;width: 100px" v-if="item.pending===6" @click.stop="onOpenComment(item.gid)">评价</el-button>
                 </div>
                 <div class="sharer" v-else>
                   <div v-if="item.pending==1">
@@ -83,6 +83,30 @@
       </ul>
       <nothing v-else></nothing>
     </div>
+    <el-dialog title="我要评论" :visible.sync="dialogFormComment">
+      <el-form
+        :label-position="'left'"
+        style="width: 600px" ref="comment"
+        :model="comment"
+        label-width="100px"
+        :hide-required-asterisk="true"
+        :rules="rules"
+        rel="comment"
+      >
+        <el-form-item label="物品评分" prop="star">
+          <el-rate
+            style="line-height:50px"
+            v-model="comment.star"
+          >
+          </el-rate>
+        </el-form-item>
+        <el-form-item label="物品评价" prop="content">
+          <el-input autosize type="textarea" v-model="comment.content" placeholder="请输入你对物品的评价"></el-input>
+        </el-form-item>
+      </el-form>
+      <el-button class="but" type="primary" @click.stop="onSubmitComment('comment')">提交</el-button>
+      <el-button class="but" @click="dialogFormComment=!dialogFormComment">取消</el-button>
+    </el-dialog>
   </div>
 </template>
 
@@ -91,6 +115,7 @@ import Nothing from '../components/nothing'
 import Popers from '../components/popper'
 import { createPending } from '../common/js/pending'
 import { pending, handlePending } from '../api/drift'
+import { writeComment } from '../api/comment'
 import { Message } from 'element-ui'
 const PAGESIZE = 5
 export default {
@@ -102,7 +127,17 @@ export default {
       selected: 0,
       pendingList: '',
       pendingTemp: '',
-      totalNum: 2
+      totalNum: 2,
+      comment: {
+        star: 0,
+        content: ''
+      },
+      dialogFormComment: false,
+      rules: {
+        star: [{ required: true, message: '请输入货品的名字' }],
+        content: [{ required: true, message: '请输入内容' }]
+      },
+      gid: 0
     }
   },
   created () {
@@ -185,6 +220,7 @@ export default {
       })
       return temp
     },
+    // 审核通过或者不通过
     onSubmitReview (id, gid, youare, pending) {
       handlePending(id, gid, youare, pending).then((res) => {
         Message({
@@ -192,6 +228,20 @@ export default {
           type: 'success'
         })
         this._pending()
+      })
+    },
+    // 评语
+    onOpenComment (gid) {
+      this.dialogFormComment = true
+      this.gid = gid
+    },
+    onSubmitComment (form) {
+      this.$refs[form].validate((valid) => {
+        if (valid) {
+          writeComment(this.gid, this.comment.star, this.comment.content).then((res) => {
+            this.dialogFormComment = false
+          })
+        }
       })
     }
   },

@@ -5,12 +5,22 @@ export function checkDriftByid (gid) {
   return instance.get(`/drift/gid=${gid}`)
 }
 
-export function createDrift (gid, name, shareId, count) {
+export function createDriftFromHelper (gid, name, shareId, count) {
   instance.defaults.auth = { username: window.localStorage.getItem('token') }
-  return instance.post('/drift/create', {
+  return instance.post('/drift/create/helper', {
     'gid': gid,
     'name': name,
-    'share_id': shareId,
+    'uid': shareId,
+    'count': count
+  })
+}
+
+export function createDriftFromSharer (gid, name, helperId, count) {
+  instance.defaults.auth = { username: window.localStorage.getItem('token') }
+  return instance.post('/drift/create/sharer', {
+    'gid': gid,
+    'name': name,
+    'uid': helperId,
     'count': count
   })
 }

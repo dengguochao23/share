@@ -27,20 +27,27 @@
             <div class="info">{{item.info}}</div>
             <div class="bottom">
               <span class="nickname">{{item.user.nickname}}</span>
-              <el-button size="small" type="primary" circle><i class="iconfont iconbangzhu icon"></i></el-button>
+              <el-button size="small" type="primary" circle @click.stop="onSelectMyHelp(item,item.name)"><i class="iconfont iconbangzhu icon"></i></el-button>
             </div>
           </div>
         </water-fall>
       </div>
+      <nothing v-else></nothing>
     </div>
+    <drawer ref="draw" :goods="goods" :helper="helper" @select="createDriftFromSharer"></drawer>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import WaterFall from '../components/waterfall'
 import { getAllSubs } from '../api/goods'
-import { getAllWish } from '../api/help'
+import { getAllWish, getAllWishBySid, checkMyGood } from '../api/help'
+import { createDriftFromSharer } from '../api/drift'
 import { createHelps } from '../common/js/help'
+import { createGoods } from '../common/js/goods'
+import Nothing from '../components/nothing'
+import Drawer from '../components/drawer'
+import { Message } from 'element-ui'
 export default {
   data () {
     return {
@@ -48,7 +55,9 @@ export default {
       options: [],
       value: '',
       totalNum: 5,
-      wishes: []
+      wishes: [],
+      helper: {},
+      goods: []
     }
   },
   created () {
@@ -56,14 +65,17 @@ export default {
     this._getAllSubs()
   },
   methods: {
-    onSelect (val) {
-      console.log(val)
+    onSelect (sid) {
       const instance = this.$createLoading({
         $props: {
           visible: true
         }
       })
       instance.show()
+      getAllWishBySid(sid).then((res) => {
+        this.wishes = this.noramlWish(res.data)
+        instance.remove()
+      })
     },
     _getAllSubs () {
       getAllSubs().then((res) => {
@@ -71,9 +83,15 @@ export default {
       })
     },
     _getAllWish () {
+      const instance = this.$createLoading({
+        $props: {
+          visible: true
+        }
+      })
+      instance.show()
       getAllWish().then((res) => {
         this.wishes = this.noramlWish(res.data)
-        console.log(this.wishes)
+        instance.remove()
       })
     },
     noramlWish (data) {
@@ -82,10 +100,46 @@ export default {
         temp.push(createHelps(d))
       })
       return temp
+    },
+    onSelectMyHelp (helper, name) {
+      this.helper = helper
+      checkMyGood(name).then((res) => {
+        this.goods = this.normalGoods(res.data)
+      }).catch((rej) => {
+        this.goods = []
+      })
+      this.$refs.draw.show()
+    },
+    normalGoods (data) {
+      let temp = []
+      data.forEach((d) => {
+        temp.push(createGoods(d))
+      })
+      return temp
+    },
+    createDriftFromSharer (good, use) {
+      let gid = good.gid
+      let name = good.name
+      let uid = use.user.id
+      let count = 5
+      createDriftFromSharer(gid, name, uid, count).then((res) => {
+        Message({
+          message: '送出成功',
+          type: 'success'
+        })
+      }).catch((rej) => {
+        Message({
+          message: '不用重复送出，你有送出同一件东西给别人了',
+          type: 'error'
+        })
+      })
+      console.log(good, use)
     }
   },
   components: {
-    WaterFall
+    WaterFall,
+    Nothing,
+    Drawer
   }
 }
 </script>
@@ -94,7 +148,6 @@ export default {
   @import "../common/stylus/index.styl"
   .wish
     padding-top: 20px
-
     .wish-container
       margin: 0 auto
       width: $width-container
@@ -121,11 +174,14 @@ export default {
             margin:20px 0px 10px 20px
           .type
             width :60%
+            margin:0px 0px 10px 20px
           .name
             width :60%
+            margin:0px 0px 10px 20px
             color: $color-theme
           .info
             width :60%
+            margin:0px 0px 0px 20px
           .bottom
             width :80%
             margin :20px auto

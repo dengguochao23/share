@@ -165,6 +165,8 @@ export default {
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "../common/stylus/variable.styl"
   .main
+    width :100vw
+    height:100%
     .head
       width :100vw
       border-bottom: 1px solid $color-background-d

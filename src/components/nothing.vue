@@ -30,6 +30,8 @@ export default {
       transform: translate(-50%,-50%)
       text-align :center
       .null
-        font-size :50px
+        font-size :2em
         color: $color-theme
+      .link
+        cursor :pointer
 </style>

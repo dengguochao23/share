@@ -1,11 +1,14 @@
 import moment from 'moment'
+
 require('moment/locale/zh-cn')
+
 class Wishes {
-  constructor ({ time, id, name, info, subsname, user, status }) {
+  constructor ({ time, id, name, info, sid, subsname, user, status }) {
     this.time = this.normalTime(time)
     this.id = id
     this.name = name
     this.info = info
+    this.sid = sid
     this.subsname = subsname
     this.user = user
     this.status = this.noramalStatus(status)
@@ -18,6 +21,7 @@ class Wishes {
     }
     return rules[status]
   }
+
   normalTime (time) {
     let day = moment.unix(time)
     moment.locale('zh-cn')
@@ -31,6 +35,7 @@ export function createHelps (data) {
     id: data.id,
     name: data.name,
     info: data.info,
+    sid: data.subs['id'],
     subsname: data.subs['name'],
     user: data.user,
     status: data.from_user

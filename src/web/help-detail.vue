@@ -17,10 +17,13 @@
           </div>
           <div class="status-container" v-if="status===4">
             <p class="title">完成</p>
-            <el-button class="but" type="primary">请你评价</el-button>
+            <el-button class="but" type="primary" @click.stop="onOpenComment(gid)">请你评价</el-button>
           </div>
           <div class="status-container" v-if="status===5">
             <p class="title">拒绝你的申请</p>
+          </div>
+          <div class="status-container" v-if="status===7">
+            <p class="title">已经评论</p>
           </div>
         </div>
         <div class="process">
@@ -72,47 +75,33 @@
               <p class="text">掉士大夫精神多了发生的覅接受了东方科技螺丝扣搭街坊爱丽丝对抗肌肤爱上了的咖啡机</p>
             </div>
           </li>
-          <li class="item">
-            <div class="user">
-              <el-avatar shape="square" :size="50"
-                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
-              <p class="nickname">dengguochao</p>
-              <p class="room">103东1单元1502好</p>
-            </div>
-            <div class="comment-text">
-              <el-rate
-                v-model="star"
-                disabled
-                show-score
-                text-color="#ff9900"
-                class="star"
-              ></el-rate>
-              <p class="time">2019-10-15 12:00:52</p>
-              <p class="text">掉士大夫精神多了发生的覅接受了东方科技螺丝扣搭街坊爱丽丝对抗肌肤爱上了的咖啡机</p>
-            </div>
-          </li>
-          <li class="item">
-            <div class="user">
-              <el-avatar shape="square" :size="50"
-                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
-              <p class="nickname">dengguochao</p>
-              <p class="room">103东1单元1502好</p>
-            </div>
-            <div class="comment-text">
-              <el-rate
-                v-model="star"
-                disabled
-                show-score
-                text-color="#ff9900"
-                class="star"
-              ></el-rate>
-              <p class="time">2019-10-15 12:00:52</p>
-              <p class="text">掉士大夫精神多了发生的覅接受了东方科技螺丝扣搭街坊爱丽丝对抗肌肤爱上了的咖啡机</p>
-            </div>
-          </li>
         </ul>
       </div>
     </div>
+    <el-dialog title="我要评论" :visible.sync="dialogFormComment">
+      <el-form
+        :label-position="'left'"
+        style="width: 600px" ref="comment"
+        :model="comment"
+        label-width="100px"
+        :hide-required-asterisk="true"
+        :rules="rules"
+        rel="comment"
+      >
+        <el-form-item label="物品评分" prop="star">
+          <el-rate
+            style="line-height:50px"
+            v-model="comment.star"
+          >
+          </el-rate>
+        </el-form-item>
+        <el-form-item label="物品评价" prop="content">
+          <el-input autosize type="textarea" v-model="comment.content" placeholder="请输入你对物品的评价"></el-input>
+        </el-form-item>
+      </el-form>
+      <el-button class="but" type="primary" @click.stop="onSubmitComment('comment')">提交</el-button>
+      <el-button class="but" @click="dialogFormComment=!dialogFormComment">取消</el-button>
+    </el-dialog>
   </div>
 </template>
 
@@ -120,6 +109,7 @@
 import { getGoodByGid } from '../api/goods'
 import { createGoods } from '../common/js/goods'
 import { handle } from '../common/js/mixin'
+import { writeComment } from '../api/comment'
 import Process from '../components/process'
 export default {
   mixins: [handle],
@@ -127,7 +117,16 @@ export default {
     return {
       star: 2,
       step: 0,
-      status: 0
+      status: 0,
+      comment: {
+        star: 0,
+        content: ''
+      },
+      dialogFormComment: false,
+      rules: {
+        star: [{ required: true, message: '请输入货品的名字' }],
+        content: [{ required: true, message: '请输入内容' }]
+      }
     }
   },
   props: {
@@ -154,6 +153,20 @@ export default {
         this.good = createGoods(res.data)
       }).catch((e) => {
         this.onBack()
+      })
+    },
+    onOpenComment (gid) {
+      this.dialogFormComment = true
+      this.gid = gid
+    },
+    onSubmitComment (form) {
+      this.$refs[form].validate((valid) => {
+        if (valid) {
+          writeComment(this.gid, this.comment.star, this.comment.content).then((res) => {
+            this.dialogFormComment = false
+            this.__checkDriftById(this.gid)
+          })
+        }
       })
     }
   },
