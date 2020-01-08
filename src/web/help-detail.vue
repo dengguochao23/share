@@ -55,27 +55,30 @@
         </div>
       </div>
       <div class="comment">
-        <ul>
-          <li class="item">
+        <ul v-if="comments.length>0">
+          <li class="item" v-for="(item,index) in comments" :key="index">
             <div class="user">
               <el-avatar shape="square" :size="50"
                          src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
-              <p class="nickname">dengguochao</p>
-              <p class="room">103东1单元1502好</p>
+              <p class="nickname">{{item.user.nickname}}</p>
+              <p class="room">{{item.user.building}}栋{{item.user.unit}}单元{{item.user.room}}</p>
             </div>
             <div class="comment-text">
               <el-rate
-                v-model="star"
+                v-model="item.star"
                 disabled
                 show-score
                 text-color="#ff9900"
                 class="star"
               ></el-rate>
-              <p class="time">2019-10-15 12:00:52</p>
-              <p class="text">掉士大夫精神多了发生的覅接受了东方科技螺丝扣搭街坊爱丽丝对抗肌肤爱上了的咖啡机</p>
+              <p class="time">{{item.time}}</p>
+              <p class="text">{{item.content}}</p>
             </div>
           </li>
         </ul>
+        <div v-else class="nothing">
+          <p>暂无评论</p>
+        </div>
       </div>
     </div>
     <el-dialog title="我要评论" :visible.sync="dialogFormComment">
@@ -108,8 +111,9 @@
 <script type="text/ecmascript-6">
 import { getGoodByGid } from '../api/goods'
 import { createGoods } from '../common/js/goods'
+import { createComment } from '../common/js/comment'
 import { handle } from '../common/js/mixin'
-import { writeComment } from '../api/comment'
+import { writeComment, getCommentByGid } from '../api/comment'
 import Process from '../components/process'
 export default {
   mixins: [handle],
@@ -119,9 +123,10 @@ export default {
       step: 0,
       status: 0,
       comment: {
-        star: 0,
+        star: '',
         content: ''
       },
+      comments: [],
       dialogFormComment: false,
       rules: {
         star: [{ required: true, message: '请输入货品的名字' }],
@@ -140,6 +145,7 @@ export default {
   created () {
     this.goodDetail(this.gid)
     this.__checkDriftById(this.gid)
+    this.__getGoodComment(this.gid)
   },
   methods: {
     onBack () {
@@ -154,6 +160,19 @@ export default {
       }).catch((e) => {
         this.onBack()
       })
+    },
+    __getGoodComment (gid) {
+      getCommentByGid(gid).then((res) => {
+        this.comments = this.normalComment(res.data)
+        console.log(this.comments)
+      })
+    },
+    normalComment (data) {
+      let temp = []
+      data.forEach((d) => {
+        temp.push(createComment(d))
+      })
+      return temp
     },
     onOpenComment (gid) {
       this.dialogFormComment = true
@@ -275,11 +294,12 @@ export default {
         box-shadow: 4px 5px 8px rgba(0, 0, 0, .1)
         border-radius: 5px
         display: flex
-
+        padding : 20px 20px 0 20px
+        .nothing
+          margin-bottom :20px
         .item
           display: flex
-          margin-bottom: 30px
-
+          margin-bottom: 20px
           .user
             width: 180px
             display: flex

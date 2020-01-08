@@ -5,6 +5,11 @@ export function getUserInfo () {
   return instance.get(`/user`)
 }
 
+export function getAllUser () {
+  instance.defaults.auth = { username: window.localStorage.getItem('token') }
+  return instance.get(`/user/all`)
+}
+
 export function checkUser (type, name) {
   return instance.post(`/user/check/c=${type}`, {
     'name': name

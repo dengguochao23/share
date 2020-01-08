@@ -27,6 +27,9 @@ export function getMyGoods () {
   instance.defaults.auth = { username: window.localStorage.getItem('token') }
   return instance.get(`/goods/get/mygood`)
 }
+export function getGoodsByUid (uid) {
+  return instance.get(`/goods/get/uid=${uid}`)
+}
 
 export function upDataMyGood (good) {
   instance.defaults.auth = { username: window.localStorage.getItem('token') }

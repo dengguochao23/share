@@ -4,6 +4,7 @@ import Main from '../web/main.vue'
 import Welcome from '../web/welcome'
 import Home from '../web/home'
 import Hot from '../web/hot'
+import HotDetail from '../web/user-detail'
 import Wish from '../web/wish'
 import Shop from '../web/shop'
 import MyHome from '../web/myHome'
@@ -49,6 +50,17 @@ const router = new Router({
           components: {
             box: Hot
           },
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: '/hot/user/',
+          name: 'HotDetail',
+          components: {
+            box: HotDetail
+          },
+          props: { box: true },
           meta: {
             requiresAuth: true
           }
