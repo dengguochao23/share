@@ -17,7 +17,7 @@ export function checkUser (type, name) {
 }
 
 export function saveUserInfo (info) {
-  return instance.post('/user/save', {
+  return instance.post('/user/save/all', {
     'nickname': info.nickname,
     'building': info.building,
     'unit': info.unit,

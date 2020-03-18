@@ -52,7 +52,7 @@
         background
         layout="prev, pager, next"
         :total="totalNum"
-        :page-size = 2
+        :page-size = 4
         @next-click="onNextPage"
         @prev-click="onPrevPage"
         @current-change="onCurrentPage"
@@ -98,6 +98,7 @@ export default {
         let data = res.data
         this.resultName = data.name
         this.totalNum = data.total
+        console.log(data.total)
         this.tableData = this.normalResult(data.data)
       })
     },

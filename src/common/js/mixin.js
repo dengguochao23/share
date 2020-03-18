@@ -43,8 +43,8 @@ export const handle = {
             this.step = 3
             break
           case 2:
-            this.status = 4
-            this.step = 4
+            this.status = 2
+            this.step = 2
             break
           case 3:
             this.status = 0

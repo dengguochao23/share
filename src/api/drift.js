@@ -30,9 +30,9 @@ export function cancalDriftByid (gid) {
   return instance.post(`/drift/cancal/gid=${gid}`)
 }
 
-export function pending () {
+export function pending (p, t) {
   instance.defaults.auth = { username: window.localStorage.getItem('token') }
-  return instance.get(`/drift/pending`)
+  return instance.get(`/drift/pending/page=${p}&&type=${t}`)
 }
 
 export function handlePending (id, gid, youare, pending) {

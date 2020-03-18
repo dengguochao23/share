@@ -4,10 +4,10 @@
       <p class="title">我的足迹</p>
       <div class="head">
         <div class="selected">
-          <el-radio-group v-model="selected" @change="onSelect">
-            <el-radio :label="0">全部</el-radio>
-            <el-radio :label="1">我是求助者</el-radio>
-            <el-radio :label="2">我是分享者</el-radio>
+          <el-radio-group v-model="select" @change="onSelect">
+            <el-radio :label="'all'">全部</el-radio>
+            <el-radio :label="'helper'">我是求助者</el-radio>
+            <el-radio :label="'sharer'">我是分享者</el-radio>
           </el-radio-group>
         </div>
         <div class="search">
@@ -23,7 +23,7 @@
         <div class="control"><p>控制</p></div>
       </div>
       <ul v-if="true" class="list">
-        <li v-for="(item,index) in pendingList" :key="index" class="single">
+        <li v-for="(item,index) in pending" :key="index" class="single">
           <div class="single-container">
             <div class="single-head"><i class="iconfont iconbangzhu"></i><span style="margin-right: 30px">你是{{item.youare==='helper'?'求助者':'分享者'}}</span>{{item.time}}
             </div>
@@ -72,8 +72,8 @@
           style="text-align: center;margin-top: 20px"
           background
           layout="prev, pager, next"
-          :total="totalNum"
-          :page-size=5
+          :total="total"
+          :page-size=4
           @next-click="onNextPage"
           @prev-click="onPrevPage"
           @current-change="onCurrentPage"
@@ -117,17 +117,15 @@ import { createPending } from '../common/js/pending'
 import { pending, handlePending } from '../api/drift'
 import { writeComment } from '../api/comment'
 import { Message } from 'element-ui'
-const PAGESIZE = 5
 export default {
   data () {
     return {
       imgSrc: 'http://pic.sooshong.com/picture/userpic2/2015-4-14/68923320154141548138.jpg',
       searchInput: '',
-      pending: '',
-      selected: 0,
-      pendingList: '',
+      pending: [],
+      select: 'all',
       pendingTemp: '',
-      totalNum: 2,
+      total: 0,
       comment: {
         star: 0,
         content: ''
@@ -141,7 +139,7 @@ export default {
     }
   },
   created () {
-    this._pending()
+    this._pending(1, 'all')
   },
   methods: {
     onSearch () {
@@ -151,69 +149,41 @@ export default {
       })
     },
     onSelect (label) {
+      console.log((label))
+      this.pending = []
       switch (label) {
-        case 0:
-          let all = this.pending
-          this.pendingTemp = this.createArrayForPending(this.pending)
-          this.totalNum = all.length
-          this.pendingList = this.pendingTemp[0]
+        case 'all':
+          this.select = 'all'
+          this._pending(1, 'all')
           break
-        case 1:
-          let helperArr = this.normalMy(this.pending, 'helper')
-          this.pendingTemp = this.createArrayForPending(helperArr)
-          this.totalNum = helperArr.length
-          this.pendingList = this.pendingTemp[0]
+        case 'helper':
+          this.select = 'helper'
+          this._pending(1, 'helper')
           break
-        case 2:
-          let sharerArr = this.normalMy(this.pending, 'sharer')
-          this.pendingTemp = this.createArrayForPending(sharerArr)
-          this.totalNum = sharerArr.length
-          this.pendingList = this.pendingTemp[0]
+        case 'sharer':
+          this.select = 2
+          this._pending(1, 'sharer')
           break
       }
-    },
-    normalMy (data, type) {
-      let temp = []
-      data.forEach((d) => {
-        if (d.youare === type) {
-          temp.push(d)
-        }
-      })
-      return temp
-    },
-    createArrayForPending (data) {
-      let dataLength = data.length
-      let groups = Math.ceil(dataLength / PAGESIZE) // 5
-      let starNum = 0
-      let temp = []
-      for (let i = 0; i < groups; i++) {
-        let t = ''
-        t = data.slice(starNum, starNum + PAGESIZE)
-        temp.push(t)
-        starNum = starNum + PAGESIZE
-      }
-      return temp
     },
     onCurrentPage (page) {
-      this.pendingList = this.pendingTemp[page - 1]
+      this._pending(page, this.select)
     },
     onPrevPage (page) {
-      this.pendingList = this.pendingTemp[page - 1]
+      this._pending(page, this.select)
     },
     onNextPage (page) {
-      this.pendingList = this.pendingTemp[page - 1]
+      this._pending(page, this.select)
     },
     // pending 的数据处理
-    _pending () {
-      pending().then((res) => {
-        // 临时存放
-        this.pending = this.normalPending(res.data)
-        this.pendingTemp = this.createArrayForPending(this.pending)
-        this.totalNum = this.pending.length
-        this.pendingList = this.pendingTemp[0]
+    _pending (page, type) {
+      pending(page, type).then((res) => {
+        this.pending = this.normalPending(res.data.data)
+        this.total = res.data.total
       })
     },
     normalPending (data) {
+      console.log((data))
       let temp = []
       data.forEach((d) => {
         temp.push(createPending(d))
@@ -227,7 +197,8 @@ export default {
           message: '处理成功',
           type: 'success'
         })
-        this._pending()
+        this.pending = []
+        this._pending(1, this.select)
       })
     },
     // 评语
