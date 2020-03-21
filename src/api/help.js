@@ -31,14 +31,14 @@ export function handleMyHelp (id, type) {
   })
 }
 
-export function getAllWish () {
+export function getAllWish (page) {
   instance.defaults.auth = { username: window.localStorage.getItem('token') }
-  return instance.get(`/help/all`)
+  return instance.get(`/help/all/page=${page}`)
 }
 
-export function getAllWishBySid (sid) {
+export function getAllWishBySid (sid, page) {
   instance.defaults.auth = { username: window.localStorage.getItem('token') }
-  return instance.get(`/help/all/sid=${sid}`)
+  return instance.get(`/help/all/sid=${sid}&&page=${page}`)
 }
 
 export function checkMyGood (name) {

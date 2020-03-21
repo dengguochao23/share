@@ -14,7 +14,7 @@
         </el-select>
       </div>
       <div class="wish-wrapper" v-if="wishes.length>0">
-        <water-fall ref="fall">
+        <water-fall :data="wishes" ref="fall">
           <div class="item" v-for="(item, index) in wishes" :key="index">
             <div class="img">
               <el-avatar shape="square" :size="160"
@@ -31,6 +31,17 @@
             </div>
           </div>
         </water-fall>
+        <el-pagination
+          style="text-align: center;margin-top: 20px"
+          background
+          layout="prev, pager, next"
+          :total="total"
+          :page-size = 10
+          @next-click="onNextPage"
+          @prev-click="onPrevPage"
+          @current-change="onCurrentPage"
+        >
+          ></el-pagination>
       </div>
       <nothing v-else></nothing>
     </div>
@@ -54,14 +65,15 @@ export default {
       selectValue: '',
       options: [],
       value: '',
-      totalNum: 5,
+      page: 1,
+      total: 5,
       wishes: [],
       helper: {},
       goods: []
     }
   },
   created () {
-    this._getAllWish()
+    this._getAllWish(this.page)
     this._getAllSubs()
   },
   methods: {
@@ -72,8 +84,10 @@ export default {
         }
       })
       instance.show()
-      getAllWishBySid(sid).then((res) => {
-        this.wishes = this.noramlWish(res.data)
+      getAllWishBySid(sid, this.page).then((res) => {
+        this.total = res.data.total
+        this.page = res.data.page
+        this.wishes = this.noramlWish(res.data.data)
         instance.remove()
       })
     },
@@ -82,15 +96,17 @@ export default {
         this.options = res.data
       })
     },
-    _getAllWish () {
+    _getAllWish (page) {
       const instance = this.$createLoading({
         $props: {
           visible: true
         }
       })
       instance.show()
-      getAllWish().then((res) => {
-        this.wishes = this.noramlWish(res.data)
+      getAllWish(page).then((res) => {
+        this.total = res.data.total
+        this.page = res.data.page
+        this.wishes = this.noramlWish(res.data.data)
         instance.remove()
       })
     },
@@ -122,7 +138,8 @@ export default {
       let name = good.name
       let uid = use.user.id
       let count = 5
-      createDriftFromSharer(gid, name, uid, count).then((res) => {
+      let id = this.helper.id
+      createDriftFromSharer(id, gid, name, uid, count).then((res) => {
         Message({
           message: '送出成功',
           type: 'success'
@@ -133,7 +150,15 @@ export default {
           type: 'error'
         })
       })
-      console.log(good, use)
+    },
+    onNextPage (page) {
+      this._getAllWish(page)
+    },
+    onPrevPage (page) {
+      this._getAllWish(page)
+    },
+    onCurrentPage (page) {
+      this._getAllWish(page)
     }
   },
   components: {

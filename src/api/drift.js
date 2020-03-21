@@ -15,9 +15,10 @@ export function createDriftFromHelper (gid, name, shareId, count) {
   })
 }
 
-export function createDriftFromSharer (gid, name, helperId, count) {
+export function createDriftFromSharer (id, gid, name, helperId, count) {
   instance.defaults.auth = { username: window.localStorage.getItem('token') }
   return instance.post('/drift/create/sharer', {
+    'id': id,
     'gid': gid,
     'name': name,
     'uid': helperId,

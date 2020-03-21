@@ -535,6 +535,11 @@ export default {
             })
             this.$refs[form].resetFields()
             this._getMyGoods()
+          }).catch(e => {
+            Message({
+              message: '已经重复登记了',
+              type: 'error'
+            })
           })
         }
       })
@@ -632,6 +637,11 @@ export default {
             })
             this.$refs[form].resetFields()
             this._getMyWishes()
+          }).catch(e => {
+            Message({
+              message: '已经重复登记了',
+              type: 'error'
+            })
           })
         }
       })
@@ -647,6 +657,11 @@ export default {
           upDataMyHelp(wish).then((res) => {
             this.dialogFormWishes = false
             this._getMyWishes()
+          }).catch(e => {
+            Message({
+              message: '已经重复登记了',
+              type: 'error'
+            })
           })
         }
       })

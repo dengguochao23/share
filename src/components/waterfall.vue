@@ -7,6 +7,14 @@
 <script type="text/ecmascript-6">
 const GEP = 20
 export default {
+  props: {
+    data: {
+      type: Array,
+      default () {
+        return []
+      }
+    }
+  },
   mounted () {
     setTimeout(() => {
       this.location()
@@ -44,6 +52,14 @@ export default {
       let maxHeight = Math.max.apply(null, arr)
       let finallyHeight = maxHeight + 100
       this.$refs.fall.style.height = finallyHeight + 'px'
+    }
+  },
+  watch: {
+    data () {
+      console.log('data')
+      setTimeout(() => {
+        this.location()
+      }, 50)
     }
   }
 }
