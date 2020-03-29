@@ -17,8 +17,7 @@
         <water-fall :data="wishes" ref="fall">
           <div class="item" v-for="(item, index) in wishes" :key="index">
             <div class="img">
-              <el-avatar shape="square" :size="160"
-                         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+              <el-avatar shape="square" :size="160" :src="item.user.image"></el-avatar>
             </div>
             <div class="type">
               <span>{{item.subsname}}</span>

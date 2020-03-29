@@ -103,7 +103,12 @@ export default {
       this.$refs[form].validate((valid) => {
         if (valid) {
           registers(this.formData.email, this.formData.pass, 100, this.formData.building, this.formData.unit, this.formData.room).then(() => {
-            this.$router.push('/home')
+            Message({
+              message: '注册成功，请重新登录',
+              type: 'success',
+              duration: 5000
+            })
+            this.open_and_close()
           }).catch((e) => {
             this.$router.push('/welcome')
             Message.error('这账号有人已经注册了')

@@ -2,11 +2,12 @@ import axios from 'axios'
 import router from '../route/router'
 
 export let instance = axios.create({
-  baseURL: 'http://127.0.0.1:5000/v1'
+  baseURL: 'http://49.234.176.70/v1'
 })
 
 axios.defaults.headers.common['Content-Type'] = 'application/json'
-axios.defaults.headers.common['Access-Control-Allow-Origin'] = 'http://127.0.0.1:5000'
+// axios.defaults.headers.common['Access-Control-Allow-Origin'] = 'http://127.0.0.1:5000'
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = 'http://49.234.176.70'
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + window.localStorage.getItem('token')
 instance.interceptors.request.use(
   config => {
