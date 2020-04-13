@@ -5,7 +5,7 @@
         <div class="cover"></div>
         <div class="user-info">
           <el-avatar shape="square" :size="100"
-                     src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+                     :src="data.image"></el-avatar>
           <p class="nickname">{{data.nickname}}</p>
           <p class="room">房号：{{data.building}}幢{{data.unit}}单元{{data.room}}</p>
           <p class="mobile">电话：{{data.mobile || '无'}}</p>

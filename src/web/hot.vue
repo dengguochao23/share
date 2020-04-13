@@ -1,3 +1,4 @@
+<script src="../../../../备份/2019-8-18/seller/prod.server.js"></script>
 <template>
   <div class="hot">
     <div class="hot-container">
@@ -45,6 +46,17 @@
           width="180">
         </el-table-column>
       </el-table>
+      <el-pagination
+        style="text-align: center;margin-top: 20px"
+        background
+        layout="prev, pager, next"
+        :total="totalNum"
+        :page-size = 10
+        @next-click="onNextPage"
+        @prev-click="onPrevPage"
+        @current-change="onCurrentPage"
+      >
+        ></el-pagination>
     </div>
   </div>
 </template>
@@ -55,7 +67,9 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      tableData: []
+      tableData: [],
+      totalNum: 0,
+      page: 1
     }
   },
   computed: {
@@ -64,20 +78,33 @@ export default {
     ])
   },
   created () {
-    this._getAllUser()
+    this._getAllUser(1)
   },
   methods: {
+    onCurrentPage (val) {
+      this.page = val
+      this._getAllUser(this.page)
+    },
+    onPrevPage () {
+      this.page--
+      this._getAllUser(this.page)
+    },
+    onNextPage () {
+      this.page++
+      this._getAllUser(this.page)
+    },
     onSelect (row) {
-      console.log(this.userInfo.id)
       if (this.userInfo.id === row.id) {
         this.$router.push('/myHome')
       } else {
         this.$router.push({ name: 'HotDetail', params: { data: row } })
       }
     },
-    _getAllUser () {
-      getAllUser().then((res) => {
-        this.tableData = res.data
+    _getAllUser (page) {
+      getAllUser(page).then((res) => {
+        this.tableData = []
+        this.totalNum = res.data.total
+        this.tableData = res.data.data
       })
     }
   }

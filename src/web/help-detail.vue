@@ -164,7 +164,6 @@ export default {
     __getGoodComment (gid) {
       getCommentByGid(gid).then((res) => {
         this.comments = this.normalComment(res.data)
-        console.log(this.comments)
       })
     },
     normalComment (data) {

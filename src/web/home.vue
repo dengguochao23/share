@@ -46,7 +46,7 @@
           <el-divider></el-divider>
           <p class="title">我要求助</p>
         </div>
-        <div class="item hot">
+        <div class="item hot" @click.stop="onHot">
           <i class="iconfont iconremen icon"></i>
           <el-divider></el-divider>
           <p class="title">热心住户</p>
@@ -160,6 +160,9 @@ export default {
   methods: {
     toMyHome () {
       this.$router.push('/myHome')
+    },
+    onHot () {
+      this.$router.push('/hot')
     },
     onHelp () {
       this.$router.push('/help')

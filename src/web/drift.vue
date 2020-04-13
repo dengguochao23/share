@@ -149,7 +149,6 @@ export default {
       })
     },
     onSelect (label) {
-      console.log((label))
       this.pending = []
       switch (label) {
         case 'all':
@@ -183,7 +182,6 @@ export default {
       })
     },
     normalPending (data) {
-      console.log((data))
       let temp = []
       data.forEach((d) => {
         temp.push(createPending(d))

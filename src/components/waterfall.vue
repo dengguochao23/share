@@ -56,7 +56,6 @@ export default {
   },
   watch: {
     data () {
-      console.log('data')
       setTimeout(() => {
         this.location()
       }, 50)
