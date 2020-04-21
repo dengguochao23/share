@@ -17,9 +17,10 @@ Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
+  base: process.env.NODE_ENV === 'production' ? '/share/' : '/',
   routes: [
     {
-      path: '',
+      path: '/',
       name: 'main',
       component: Main,
       redirect: '/home',
