@@ -22,7 +22,7 @@
         <div class="pending"><p>状态</p></div>
         <div class="control"><p>控制</p></div>
       </div>
-      <ul v-if="true" class="list">
+      <ul v-if="pending.length>0" class="list">
         <li v-for="(item,index) in pending" :key="index" class="single">
           <div class="single-container">
             <div class="single-head"><i class="iconfont iconbangzhu"></i><span style="margin-right: 30px">你是{{item.youare==='helper'?'求助者':'分享者'}}</span>{{item.time}}
@@ -160,7 +160,7 @@ export default {
           this._pending(1, 'helper')
           break
         case 'sharer':
-          this.select = 2
+          this.select = 'sharer'
           this._pending(1, 'sharer')
           break
       }

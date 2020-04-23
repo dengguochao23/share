@@ -1,4 +1,3 @@
-<script src="../../../../备份/2019-8-18/seller/prod.server.js"></script>
 <template>
   <div class="help">
     <div class="help-container">
@@ -49,16 +48,17 @@
           </el-table-column>
         </el-table>
         <el-pagination
-        style="text-align: center;margin-top: 20px"
-        background
-        layout="prev, pager, next"
-        :total="totalNum"
-        :page-size = 4
-        @next-click="onNextPage"
-        @prev-click="onPrevPage"
-        @current-change="onCurrentPage"
-      >
-        ></el-pagination>
+          style="text-align: center;margin-top: 20px"
+          background
+          layout="prev, pager, next"
+          :total="totalNum"
+          :page-size=4
+          @next-click="onNextPage"
+          @prev-click="onPrevPage"
+          @current-change="onCurrentPage"
+        >
+          >
+        </el-pagination>
       </div>
     </div>
   </div>
@@ -67,6 +67,7 @@
 <script type="text/ecmascript-6">
 import { searchGood } from '../api/search'
 import { createGoods } from '../common/js/goods'
+import { Message } from 'element-ui'
 export default {
   data () {
     return {
@@ -95,11 +96,16 @@ export default {
     },
     __searchGood (name, page) {
       searchGood(name, page).then((res) => {
-        this.tableData = []
         let data = res.data
+        if (data.data.length === 0) {
+          Message({
+            message: '没搜索到结果',
+            type: 'warning'
+          })
+        }
+        this.tableData = []
         this.resultName = data.name
         this.totalNum = data.total
-        console.log(data.total)
         this.tableData = this.normalResult(data.data)
       })
     },
@@ -122,30 +128,36 @@ export default {
   .help
     width: $width-container
     margin: 0px auto
-    padding-top :20px
+    padding-top: 20px
+
     .help-container
       border-top: 5px solid $color-theme
       background-color: $color-background
       box-shadow: 4px 5px 8px rgba(0, 0, 0, .1)
       border-radius: 5px
       padding: 10px
-      margin-bottom :100px
+      margin-bottom: 100px
+
       .search
-        display :flex
-        width : 50%
-        margin :20px auto
-        align-items :center
+        display: flex
+        width: 50%
+        margin: 20px auto
+        align-items: center
+
       .list
-        margin-top :50px
-        padding :20px 50px 20px 50px
+        margin-top: 50px
+        padding: 20px 50px 20px 50px
+
         .title
-          font-size :$font-size-large-xx
+          font-size: $font-size-large-xx
+
         .result
-          margin-top :20px
-          display :flex
-          color :$color-text-desc
-          justify-content :space-between
+          margin-top: 20px
+          display: flex
+          color: $color-text-desc
+          justify-content: space-between
+
           .name
-            color :$color-theme
+            color: $color-theme
 
 </style>
