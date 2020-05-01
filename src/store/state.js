@@ -1,7 +1,8 @@
 const state = {
   token: window.localStorage.getItem('token'),
   userInfo: {},
-  loginStatus: false
+  loginStatus: false,
+  shop: {}
 }
 
 export default state
