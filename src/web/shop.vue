@@ -28,33 +28,37 @@
     </div>
     <el-divider content-position="center"><h1>蔬菜</h1></el-divider>
     <div class="shop">
-      <div v-for="(item,index) in vegetables" :key="index" class="item"
-           v-on="{mouseenter:onMouseEnter, mouseleave:onMouseLeave}">
-        <div class="img">
+      <div v-for="(item,index) in vegetables" :key="index" class="item">
+        <div class="img" v-on.stop="{mouseenter:onMouseEnter, mouseleave:onMouseLeave}">
           <el-image style="width: 140px; height: 140px"
-                    :src="item.url"
+                    :src="item.image"
                     :fit="fit"></el-image>
         </div>
-        <p class="name">香菜</p>
-        <p class="count">7豆</p>
+        <p class="name">{{item.name}}</p>
+        <p class="count">{{item.price}}豆</p>
         <div @click.stop="addShopCart(item)" class="cover" ref="cover">
           <p>我要兑换</p>
+        </div>
+        <div class="null" v-show="item.stock === 0">
+          <p>库存清空</p>
         </div>
       </div>
     </div>
-    <el-divider content-position="center"><h1>饮料</h1></el-divider>
+    <el-divider content-position="center"><h1>水果</h1></el-divider>
     <div class="shop">
-      <div v-for="(item,index) in vegetables" :key="index" class="item"
-           v-on="{mouseenter:onMouseEnter, mouseleave:onMouseLeave}">
-        <div class="img">
+      <div v-for="(item,index) in fruit" :key="index" class="item">
+        <div class="img" v-on.prevent="{mouseenter:onMouseEnter, mouseleave:onMouseLeave}">
           <el-image style="width: 140px; height: 140px"
-                    :src="item.url"
+                    :src="item.image"
                     :fit="fit"></el-image>
         </div>
-        <p class="name">香菜</p>
-        <p class="count">7豆</p>
+        <p class="name">{{item.name}}</p>
+        <p class="count">{{item.price}}豆</p>
         <div @click.stop="addShopCart(item)" class="cover" ref="cover">
           <p>我要兑换</p>
+        </div>
+        <div class="null" v-show="item.stock === 0">
+          <p>库存清空</p>
         </div>
       </div>
     </div>
@@ -69,16 +73,56 @@
         </div>
       </transition>
     </div>
-    <shopping id="shopping" ref="shopping"></shopping>
+    <shopping id="shopping" ref="shopping" @onClick="clickShop"></shopping>
+    <el-dialog class="dialog" title="我的购物车" :visible.sync="outDialogShopCart" width="40%">
+      <el-dialog
+        width="30%"
+        title="提示"
+        :visible.sync="inDialogShopCart"
+        append-to-body>
+        <p style="margin-bottom: 20px">你确认要提交吗？</p>
+        <el-button
+          type="primary"
+          @click.stop="_sellMyShop">提交
+        </el-button>
+      </el-dialog>
+      <el-table :show-summary="true" :data="myShop" style="width: 100%" max-height="250">
+        <el-table-column property="name" label="物品名称"></el-table-column>
+        <el-table-column property="num" label="数量">
+          <template slot-scope="select">
+            <div class="select-container">
+              <div class="but cut" @click.stop="cutNum(select.$index)">-</div>
+              <span>{{select.row.num}}</span>
+              <div class="but add" @click.stop="addNum(select.row)">+</div>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column align="center">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              type="danger"
+              @click.stop="shopDelete(scope.$index, scope.row)">Delete
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="settle">
+        <el-button type="primary" @click="settle">结算</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import Shopping from '../components/shopping'
 import { addClass, removeClass } from '../common/js/dom'
+import { getAllShopOfType, sellMyShop } from '../api/shop'
+import { Message } from 'element-ui'
 const BALL_LEN = 10 // 设置球子的数量
 const innerClsHook = 'inner-hook'
+
 function createBalls () {
   let balls = []
   for (let i = 0; i < BALL_LEN; i++) {
@@ -88,31 +132,19 @@ function createBalls () {
   }
   return balls
 }
+
 export default {
   data () {
     return {
       ballurl: 'https://img30.360buyimg.com/n1//jfs/t1/94787/15/9690/145517/5e122566E8676ef07/f014612d065cd9d5.jpg',
       fit: 'fit',
-      vegetables: [
-        {
-          url: 'https://img30.360buyimg.com/n1//jfs/t1/94787/15/9690/145517/5e122566E8676ef07/f014612d065cd9d5.jpg'
-        },
-        {
-          url: 'https://img30.360buyimg.com/n1//jfs/t1/106719/5/15272/90515/5e6efe02Ef2b35a68/96ad62b1478603c5.jpg'
-        },
-        {
-          url: 'https://img30.360buyimg.com/n1//jfs/t1/85009/3/8877/18132/5e070eb4E501514b4/28e32bed3bf76433.jpg'
-        },
-        {
-          url: 'https://img30.360buyimg.com/n1//jfs/t1/94787/15/9690/145517/5e122566E8676ef07/f014612d065cd9d5.jpg'
-        },
-        {
-          url: 'https://img30.360buyimg.com/n1//jfs/t1/94787/15/9690/145517/5e122566E8676ef07/f014612d065cd9d5.jpg'
-        }
-      ],
+      vegetables: [],
+      fruit: [],
       balls: createBalls(), // 用来控制小球的显示隐藏
       ballLeft: 0,
-      ballTop: 0
+      ballTop: 0,
+      outDialogShopCart: false,
+      inDialogShopCart: false
     }
   },
   computed: {
@@ -126,24 +158,28 @@ export default {
       return this.userInfo.count
     },
     ...mapGetters([
-      'userInfo'
+      'userInfo',
+      'myShop'
     ])
   },
   created () {
     this.dropBalls = []
+    this._getAllShopType()
   },
   methods: {
     toMyHome () {
       this.$router.push('/myHome')
     },
     onMouseEnter (event) {
-      const el = event.target
+      // 获取到父节点
+      const el = event.currentTarget.parentElement
       const cover = el.getElementsByClassName('cover')[0]
       addClass(el, 'active')
       cover.style.bottom = '0'
     },
     onMouseLeave (event) {
-      const el = event.target
+      // 获取到父节点
+      const el = event.currentTarget.parentElement
       const bottom = -40
       const cover = el.getElementsByClassName('cover')[0]
       removeClass(el, 'active')
@@ -153,12 +189,19 @@ export default {
       // 获得球的高度
       this.ballLeft = event.currentTarget.getBoundingClientRect().left + 115
       this.ballTop = event.currentTarget.getBoundingClientRect().top
+      let shop = {
+        'id': item.id,
+        'name': item.name,
+        'price': item.price,
+        'num': 1
+      }
+      this.addShop(shop)
       for (let i = 0; i < this.balls.length; i++) {
         const ball = this.balls[i]
         if (!ball.show) {
           ball.show = true
           ball.el = event.currentTarget
-          ball.url = item.url
+          ball.url = item.image
           this.dropBalls.push(ball)
           return
         }
@@ -192,7 +235,63 @@ export default {
       }
       this.ballTop = 0
       this.ballLeft = 0
-    }
+    },
+    clickShop () {
+      this.outDialogShopCart = !this.outDialogShopCart
+    },
+    cutNum (index) {
+      this.cutShop(index)
+    },
+    addNum (item) {
+      this.addShop(item)
+    },
+    shopDelete (index) {
+      this.deleteShop(index)
+    },
+    settle () {
+      this.inDialogShopCart = !this.inDialogShopCart
+    },
+    _sellMyShop () {
+      const shopCart = this.myShop.slice()
+      if (shopCart.length === 0) {
+        Message({
+          message: '购物箱没任何内容',
+          type: 'warning'
+        })
+        return
+      }
+      sellMyShop(shopCart).then(() => {
+        Message({
+          message: '提交订单成功',
+          type: 'success'
+        })
+        this.inDialogShopCart = false
+        this.clickShop()
+        this.cleanShop()
+        window.location.reload()
+      }).catch(() => {
+        Message({
+          message: '你不够7豆来支付这笔费用',
+          type: 'error'
+        })
+      })
+    },
+    _getAllShopType () {
+      getAllShopOfType(1).then((res) => {
+        this.vegetables = this.vegetables.concat(res.data)
+      })
+        .then(() => {
+          getAllShopOfType(2).then((res) => {
+            this.fruit = this.fruit.concat(res.data)
+          })
+        })
+    },
+    ...mapActions([
+      'addShop',
+      'deleteShop',
+      'cutShop',
+      'cleanShop'
+    ])
   },
   components: {
     Shopping
@@ -284,37 +383,79 @@ export default {
         color: white
         line-height: 40px
         transition: all 0.3s
-
+      .null
+        position :absolute
+        top :0
+        left: 0
+        width :100%
+        height: 100%
+        background-color: rgba(255,255,255,0.8);
+        z-index: 999
+        p
+          text-align :center
+          line-height :230px
+          font-size :$font-size-large-xx
+          color : $color-theme
+          font-weight :900
       .item:nth-child(5)
         margin-right: 0
 
     .ball
       position: fixed
       z-index: 1000
-      top :0
-      left :0
+      top: 0
+      left: 0
       transition: all 0.88s cubic-bezier(0.275, -0.32, 0.885, 0.175)
+
       .inner
-        width : 20px
-        height :20px
-        border-radius :50%
+        width: 20px
+        height: 20px
+        border-radius: 50%
         transition: all 0.88s linear
+
       img
-        width : 20px
-        height :20px
-        border-radius :50%
-        animation : 0.88s shopImg
+        width: 20px
+        height: 20px
+        border-radius: 50%
+        animation: 0.88s shopImg
+
+    .dialog
+      .select-container
+        display: flex
+
+        .but
+          display: block
+          width: 20px
+          height: 20px
+          border-radius: 50%
+          text-align: center
+          line-height: 20px
+          cursor: pointer
+
+          &.cut
+            background-color: $color-theme-d
+
+          &.add
+            color: white
+            background-color: $color-theme
+
+        span
+          margin: 0 10px
+      .settle
+        margin-top :20px
+        text-align :right
   .el-divider__text
     background-color: $color-background-d !important
+
   @keyframes shopImg
     0%
-      transform :scale(2.5)
+      transform: scale(2.5)
     25%
-      transform :scale(1.8)
+      transform: scale(1.8)
     50%
-      transform :scale(1.2)
+      transform: scale(1.2)
     75%
-      transform :scale(0.6)
+      transform: scale(0.6)
     100%
-      transform :scale(0.3)
+      transform: scale(0.3)
 </style>

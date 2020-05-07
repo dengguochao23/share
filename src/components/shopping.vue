@@ -1,5 +1,5 @@
 <template>
-  <div class="shopping" ref="shopping" :class="{'active': target === true}">
+  <div @click.stop="clickShopping" class="shopping" ref="shopping" :class="{'active': target === true}">
     <div class="container">
       <div class="icon-wrapper">
         <i class="iconfont icongouwuchekong icon"></i>
@@ -46,6 +46,9 @@ export default {
         this.$refs.shopping.style.bottom = `100px`
         this.$refs.shopping.style.top = `auto`
       }
+    },
+    clickShopping () {
+      this.$emit('onClick')
     }
   }
 }

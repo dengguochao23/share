@@ -49,3 +49,38 @@ export const logOut = function ({ commit }) {
   window.localStorage.clear()
   commit(types.USERINFO, {})
 }
+
+export const addShop = function ({ commit, state }, shop) {
+  let currentShop = state.myShop.slice()
+  let sameforshopofIndex = currentShop.findIndex((s) => {
+    return s.id === shop.id
+  })
+  if (sameforshopofIndex >= 0) {
+    let current = currentShop[sameforshopofIndex] // 拿到当前物品
+    let num = current.num
+    num++
+    current.num = num
+  } else {
+    currentShop.push(shop)
+  }
+  commit(types.MYSHOP, currentShop)
+}
+export const cleanShop = function ({ commit }) {
+  commit(types.MYSHOP, [])
+}
+export const cutShop = function ({ commit, state }, index) {
+  let currentShop = state.myShop.slice()
+  let currentNum = currentShop[index].num - 1
+  currentShop[index].num = currentNum
+  if (currentNum < 1) {
+    currentShop.splice(index, 1)
+  }
+  console.log(currentShop)
+  commit(types.MYSHOP, currentShop)
+}
+
+export const deleteShop = function ({ commit, state }, index) {
+  let currentShop = state.myShop.slice()
+  currentShop.splice(index, 1)
+  commit(types.MYSHOP, currentShop)
+}
