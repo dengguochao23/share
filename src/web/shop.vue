@@ -29,15 +29,17 @@
     <el-divider content-position="center"><h1>蔬菜</h1></el-divider>
     <div class="shop">
       <div v-for="(item,index) in vegetables" :key="index" class="item">
-        <div class="img" v-on.stop="{mouseenter:onMouseEnter, mouseleave:onMouseLeave}">
-          <el-image style="width: 140px; height: 140px"
-                    :src="item.image"
-                    :fit="fit"></el-image>
-        </div>
-        <p class="name">{{item.name}}</p>
-        <p class="count">{{item.price}}豆</p>
-        <div @click.stop="addShopCart(item)" class="cover" ref="cover">
-          <p>我要兑换</p>
+        <div v-on.stop="{mouseenter:onMouseEnter, mouseleave:onMouseLeave}">
+          <div class="img" >
+            <el-image style="width: 140px; height: 140px"
+                      :src="item.image"
+                      :fit="fit"></el-image>
+          </div>
+          <p class="name">{{item.name}}</p>
+          <p class="count">{{item.price}}豆</p>
+          <div @click.stop="addShopCart(item)" class="cover" ref="cover">
+            <p>我要兑换</p>
+          </div>
         </div>
         <div class="null" v-show="item.stock === 0">
           <p>库存清空</p>
