@@ -30,7 +30,7 @@
     <div class="shop">
       <div v-for="(item,index) in vegetables" :key="index" class="item">
         <div v-on.stop="{mouseenter:onMouseEnter, mouseleave:onMouseLeave}">
-          <div class="img" >
+          <div class="img">
             <el-image style="width: 140px; height: 140px"
                       :src="item.image"
                       :fit="fit"></el-image>
@@ -49,15 +49,17 @@
     <el-divider content-position="center"><h1>水果</h1></el-divider>
     <div class="shop">
       <div v-for="(item,index) in fruit" :key="index" class="item">
-        <div class="img" v-on.prevent="{mouseenter:onMouseEnter, mouseleave:onMouseLeave}">
-          <el-image style="width: 140px; height: 140px"
-                    :src="item.image"
-                    :fit="fit"></el-image>
-        </div>
-        <p class="name">{{item.name}}</p>
-        <p class="count">{{item.price}}豆</p>
-        <div @click.stop="addShopCart(item)" class="cover" ref="cover">
-          <p>我要兑换</p>
+        <div v-on.prevent="{mouseenter:onMouseEnter, mouseleave:onMouseLeave}">
+          <div class="img">
+            <el-image style="width: 140px; height: 140px"
+                      :src="item.image"
+                      :fit="fit"></el-image>
+          </div>
+          <p class="name">{{item.name}}</p>
+          <p class="count">{{item.price}}豆</p>
+          <div @click.stop="addShopCart(item)" class="cover" ref="cover">
+            <p>我要兑换</p>
+          </div>
         </div>
         <div class="null" v-show="item.stock === 0">
           <p>库存清空</p>
@@ -122,6 +124,7 @@ import Shopping from '../components/shopping'
 import { addClass, removeClass } from '../common/js/dom'
 import { getAllShopOfType, sellMyShop } from '../api/shop'
 import { Message } from 'element-ui'
+
 const BALL_LEN = 10 // 设置球子的数量
 const innerClsHook = 'inner-hook'
 
@@ -385,20 +388,23 @@ export default {
         color: white
         line-height: 40px
         transition: all 0.3s
+
       .null
-        position :absolute
-        top :0
+        position: absolute
+        top: 0
         left: 0
-        width :100%
+        width: 100%
         height: 100%
-        background-color: rgba(255,255,255,0.8);
+        background-color: rgba(255, 255, 255, 0.8);
         z-index: 999
+
         p
-          text-align :center
-          line-height :230px
-          font-size :$font-size-large-xx
-          color : $color-theme
-          font-weight :900
+          text-align: center
+          line-height: 230px
+          font-size: $font-size-large-xx
+          color: $color-theme
+          font-weight: 900
+
       .item:nth-child(5)
         margin-right: 0
 
@@ -443,9 +449,11 @@ export default {
 
         span
           margin: 0 10px
+
       .settle
-        margin-top :20px
-        text-align :right
+        margin-top: 20px
+        text-align: right
+
   .el-divider__text
     background-color: $color-background-d !important
 

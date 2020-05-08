@@ -12,6 +12,7 @@ import Help from '../web/help'
 import HelpDetail from '../web/help-detail'
 import Drift from '../web/drift'
 import store from '../store/index'
+import NotFound from '../web/not-found'
 
 Vue.use(Router)
 
@@ -19,6 +20,10 @@ const router = new Router({
   mode: 'history',
   base: process.env.NODE_ENV === 'production' ? '/share/' : '/',
   routes: [
+    {
+      path: '*',
+      component: NotFound
+    },
     {
       path: '/',
       name: 'main',
