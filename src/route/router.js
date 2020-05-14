@@ -1,8 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '../web/main.vue'
-import Welcome from '../web/welcome'
 import Home from '../web/home'
+import store from '../store/index'
+// const Hot = () => import('../web/hot.vue')
+// const HotDetail = () => import('../web/user-detail.vue')
+// const Wish = () => import('../web/wish.vue')
+// const Shop = () => import('../web/shop.vue')
+// const MyHome = () => import('../web/myHome.vue')
+// const Help = () => import('../web/help.vue')
+// const HelpDetail = () => import('../web/help-detail.vue')
+// const Drift = () => import('../web/drift.vue')
+// const NotFound = () => import('../web/not-found.vue')
+// const Welcome = () => import('../web/welcome.vue')
 import Hot from '../web/hot'
 import HotDetail from '../web/user-detail'
 import Wish from '../web/wish'
@@ -11,11 +21,9 @@ import MyHome from '../web/myHome'
 import Help from '../web/help'
 import HelpDetail from '../web/help-detail'
 import Drift from '../web/drift'
-import store from '../store/index'
 import NotFound from '../web/not-found'
-
+import Welcome from '../web/welcome'
 Vue.use(Router)
-
 const router = new Router({
   mode: 'history',
   base: process.env.NODE_ENV === 'production' ? '/share/' : '/',

@@ -3,7 +3,7 @@
     <div class="not-container">
       <p class="num">404</p>
       <p class="text">你似乎来到了不正确的地方</p>
-      <el-button type="primary" size="medium" @click="home">回到首页</el-button>
+      <el-button type="primary" @click="home">回到首页</el-button>
     </div>
   </div>
 </template>

@@ -17,7 +17,7 @@
           <span class="num">{{count}}</span>
         </div>
         <div class="my">
-          <el-button style="width: 250px;background: white;color: black" type="primary" @click="toMyHome">进入我的主页
+          <el-button style="width: 250px;background: white;color: black" size="medium" type="primary" @click="toMyHome">进入我的主页
           </el-button>
         </div>
       </div>

@@ -1,7 +1,5 @@
 import moment from 'moment'
-
 require('moment/locale/zh-cn')
-
 export default class Pending {
   constructor ({ id, time, status, gid, name, content, subname, specification, detail, image, pending, youare, sharer, helper }) {
     this.id = id

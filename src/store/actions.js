@@ -75,7 +75,6 @@ export const cutShop = function ({ commit, state }, index) {
   if (currentNum < 1) {
     currentShop.splice(index, 1)
   }
-  console.log(currentShop)
   commit(types.MYSHOP, currentShop)
 }
 
