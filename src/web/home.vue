@@ -93,25 +93,48 @@
         </div>
       </div>
     </div>
-    <div class="intro">
+    <div class="intro search" ref="search">
       <div class="intro-container">
-        <header class="head">
-          <p class="title">闲置物品利用率提高</p>
-          <p>申请无门槛，家里没用的物品皆可借出去</p>
-        </header>
-        <section class="content">
-          <div class="left">
-            <p class="title">物业能保障我们什么?</p>
-            <p class="text">物业作为中间层，来保障共享物品更安全，更高效</p>
-            <p class="title">我们需要做什么?</p>
-            <p class="text">只需简单注册，就能分享东西</p>
-            <p class="title">适用人群覆盖面广</p>
-            <p class="text">覆盖东莞、惠州 准入小区均可申请</p>
+          <div class="text">
+            <h1>我要求助</h1>
+            <p>通过该版块的搜索，你会找到你想要的物品，点击进去，按照你提示内容完成下一步内容</p>
           </div>
-          <div class="right">
-            <el-image :src="'https://img1.gtimg.com/house_chengdu/pics/hv1/57/25/2281/148328457.jpg'"></el-image>
+          <div class="img" >
+            <el-image :src="require('../common/img/search.png')" :lazy="true" :class="{'active': currentScroll > 1206}"></el-image>
           </div>
-        </section>
+      </div>
+    </div>
+    <div class="intro hot" ref="hot">
+      <div class="intro-container">
+        <div class="img" >
+          <el-image :src="require('../common/img/hot.png')" :lazy="true" :class="{'active': currentScroll > 1591 }"></el-image>
+        </div>
+        <div class="text">
+          <h1>热心住户</h1>
+          <p>通过该版块的你可以看到最热门的住户，你可以马上向他发起求助</p>
+        </div>
+      </div>
+    </div>
+    <div class="intro help" ref="help">
+      <div class="intro-container">
+        <div class="text">
+          <h1>他人求助</h1>
+          <p>通过该版块的你可以看到别人发起的请求，助人为乐原来如此简单</p>
+        </div>
+        <div class="img" >
+          <el-image :src="require('../common/img/help.png')" :lazy="true" :class="{'active': currentScroll > 1976}"></el-image>
+        </div>
+      </div>
+    </div>
+    <div class="intro shop" ref="shop">
+      <div class="intro-container">
+        <div class="img" >
+          <el-image :src="require('../common/img/shop.png')" :lazy="true" :class="{'active': currentScroll > 2361}"></el-image>
+        </div>
+        <div class="text">
+          <h1>兑换商城</h1>
+          <p>通过该版块的你可以用你的7豆，兑换你的生活用品</p>
+        </div>
       </div>
     </div>
   </div>
@@ -126,7 +149,9 @@ export default {
       // 进度条动画展示，只允许展示一次
       isShowProcess: false,
       step: 0,
-      processScrollTop: ''
+      processScrollTop: '',
+      currentScroll: 0,
+      url: require('../common/img/search.png')
     }
   },
   computed: {
@@ -179,11 +204,11 @@ export default {
       window.addEventListener('scroll', this.handleScroll)
     },
     handleScroll (e) {
-      let current = e.target.scrollingElement.scrollTop
+      this.currentScroll = e.target.scrollingElement.scrollTop
       if (this.isShowProcess) {
         return
       }
-      if (current > this.processScrollTop) {
+      if (this.currentScroll > this.processScrollTop) {
         this.isShowProcess = true
         this.showProcess()
       }
@@ -268,7 +293,7 @@ export default {
         border-radius: 5px
         display: flex
         justify-content: space-around
-        padding: 30px 80px 30px 80px
+        padding: 50px 80px 50px 80px
 
         .item
           width: 160px
@@ -303,7 +328,7 @@ export default {
             font-size: 30px
 
     .study
-      padding :50px 0px
+      padding :80px 0px
       margin-top: 30px
       background-color: white
 
@@ -336,29 +361,30 @@ export default {
                 font-size :40px
                 line-height: 100px
     .intro
-      padding :50px 0px
+      padding :80px 0px
+      &.hot, &.shop
+        background-color: white
       .intro-container
         margin: 0 auto
         width: $width-container
-        .head
-          width :100%
-          height :100px
-          text-align :center
-          .title
-            font-size :$font-size-large-xx
+        display :flex
+        justify-content :space-around
+        .text
+          width :50%
+          h1
+            margin-bottom : 20px
             color :$color-theme
-            margin-bottom :15px
-        .content
-          width :100%
-          display :flex
-          justify-content :space-between
-          .left
-            padding :10px
-            .title
-              color :$color-theme
-              font-size :$font-size-large
-              margin-bottom :10px
-            .text
-              margin-bottom :20px
-              color :$color-text-desc
+        .img
+          width : 400px
+          height :225px
+          opacity :1
+          .active
+            animation : 0.88s  myImg
+  @keyframes myImg
+    0%
+      transform: scale(1)
+    50%
+      transform: scale(1.2)
+    100%
+      transform: scale(1)
 </style>
