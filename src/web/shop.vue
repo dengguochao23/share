@@ -35,7 +35,10 @@
                       :src="item.image"
                       :fit="fit"></el-image>
           </div>
-          <p class="name">{{item.name}}</p>
+          <div class="name">
+            <p>{{item.name}}</p>
+            <p>库存{{item.stock}}份</p>
+          </div>
           <p class="count">{{item.price}}豆</p>
           <div @click.stop="addShopCart(item)" class="cover" ref="cover">
             <p>我要兑换</p>
@@ -55,7 +58,10 @@
                       :src="item.image"
                       :fit="fit"></el-image>
           </div>
-          <p class="name">{{item.name}}</p>
+          <div class="name">
+            <p>{{item.name}}</p>
+            <p>库存{{item.stock}}份</p>
+          </div>
           <p class="count">{{item.price}}豆</p>
           <div @click.stop="addShopCart(item)" class="cover" ref="cover">
             <p>我要兑换</p>
@@ -274,9 +280,10 @@ export default {
         this.clickShop()
         this.cleanShop()
         window.location.reload()
-      }).catch(() => {
+      }).catch((rej) => {
+        let message = rej.data.meg
         Message({
-          message: '你不够7豆来支付这笔费用',
+          message: message,
           type: 'error'
         })
       })
@@ -374,9 +381,13 @@ export default {
         margin: 15px 0
 
       .name
-        font-size: $font-size-large
-        font-weight: 900
-
+        display :flex
+        justify-content :space-between
+        &.name p:nth-child(1)
+          font-size: $font-size-large
+          font-weight: 900
+        &.name p:nth-child(2)
+          color : red
       .cover
         width: 100%
         height: 40px
