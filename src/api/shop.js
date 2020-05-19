@@ -9,3 +9,7 @@ export function sellMyShop (data) {
     'res': data
   })
 }
+
+export function getMyShopCart (pending) {
+  return instance.get(`/shop/my/pending=${pending}`)
+}

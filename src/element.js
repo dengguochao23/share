@@ -25,7 +25,9 @@ import {
   Pagination,
   Rate,
   Radio,
-  RadioGroup
+  RadioGroup,
+  Collapse,
+  CollapseItem
 } from 'element-ui'
 
 Vue.component(Button.name, Button)
@@ -52,3 +54,5 @@ Vue.component(Pagination.name, Pagination)
 Vue.component(Rate.name, Rate)
 Vue.component(Radio.name, Radio)
 Vue.component(RadioGroup.name, RadioGroup)
+Vue.component(Collapse.name, Collapse)
+Vue.component(CollapseItem.name, CollapseItem)

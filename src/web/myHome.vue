@@ -227,12 +227,27 @@
         </div>
       </tabs>
     </div>
-    <div class="ad">
-      <div class="first-ad">
-        广告招租
+    <div class="info">
+      <div class="shop">
+        <p class="title">我的购物车</p>
+        <div class="item">
+          <el-collapse v-model="activeNames" accordion>
+            <el-collapse-item v-for="(shop,id) in shopCarts" :key="id">
+              <template slot="title">
+                <span>订单号： {{shop.id}}</span>
+              </template>
+              <div v-for="(item, index) in shop.res" :key="index" class="collapse-item">
+                <span>{{item.name}}</span>
+                <span>{{item.number}}个</span>
+                <span>{{item.number*item.price}}</span>
+              </div>
+              <div class="pending">待审核中</div>
+            </el-collapse-item>
+          </el-collapse>
+        </div>
       </div>
       <div class="second-ad">
-        广告招租
+
       </div>
     </div>
     <el-dialog title="我的货品" :visible.sync="dialogFormGoods">
@@ -285,6 +300,7 @@ import { mapGetters, mapActions } from 'vuex'
 import { checkUser, saveUserInfo } from '../api/user'
 import { getMyHelp, upDataMyHelp, addMyHelp, handleMyHelp } from '../api/help'
 import { getAllSubs, addMyGood, getMyGoods, upDataMyGood, handleMyGood } from '../api/goods'
+import { getMyShopCart } from '../api/shop'
 import { createGoods } from '../common/js/goods'
 import { createHelps } from '../common/js/help'
 import { Message } from 'element-ui'
@@ -389,7 +405,10 @@ export default {
       },
       // dialog的开启
       dialogFormGoods: false,
-      dialogFormWishes: false
+      dialogFormWishes: false,
+      // 购物车
+      activeNames: 1,
+      shopCarts: []
     }
   },
   computed: {
@@ -428,6 +447,7 @@ export default {
     this.createSubs()
     this._getMyGoods()
     this._getMyWishes()
+    this._getMyShopCart()
   },
   methods: {
     // 提交我的信息
@@ -691,7 +711,12 @@ export default {
     },
     ...mapActions([
       'updateUser'
-    ])
+    ]),
+    _getMyShopCart () {
+      getMyShopCart(1).then((res) => {
+        this.shopCarts = this.shopCarts.concat(res.data)
+      })
+    }
   },
   watch: {
     wishData () {
@@ -765,7 +790,22 @@ export default {
             margin-top: 60px
         .but
             margin-left: 30px
-    .ad
+    .info
       width: 30%
-      background-color: red
+      .shop
+        padding :20px
+        background-color: $color-background
+        .title
+          font-size: $font-size-large-xx
+        .item
+          margin-top :20px
+          .collapse-item
+            width :100%
+            display :flex
+            justify-content :space-around
+            margin-top :15px
+          .pending
+            color :$color-theme
+            margin-top :15px
+            font-size : $font-size-large
 </style>
