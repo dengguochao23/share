@@ -172,9 +172,9 @@ export default {
   @import "../common/stylus/index.styl"
   .wish
     padding-top: 20px
+    width: $width-container
+    margin: 0 auto
     .wish-container
-      margin: 0 auto
-      width: $width-container
       border-top: 5px solid $color-theme
       background-color: $color-background
       border-radius: 5px

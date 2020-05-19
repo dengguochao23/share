@@ -24,7 +24,7 @@ export default {
     location () {
       let fallParent = this.$refs.fall
       let fallChildren = fallParent.children
-      let imgWidth = 200
+      let imgWidth = 215
       let gep = GEP
       let cols = Math.floor(fallParent.clientWidth / imgWidth)
       let boxHeightArray = []
