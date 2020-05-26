@@ -3,26 +3,16 @@ import Router from 'vue-router'
 import Main from '../web/main.vue'
 import Home from '../web/home'
 import store from '../store/index'
-// const Hot = () => import('../web/hot.vue')
-// const HotDetail = () => import('../web/user-detail.vue')
-// const Wish = () => import('../web/wish.vue')
-// const Shop = () => import('../web/shop.vue')
-// const MyHome = () => import('../web/myHome.vue')
-// const Help = () => import('../web/help.vue')
-// const HelpDetail = () => import('../web/help-detail.vue')
-// const Drift = () => import('../web/drift.vue')
-// const NotFound = () => import('../web/not-found.vue')
-// const Welcome = () => import('../web/welcome.vue')
-import Hot from '../web/hot'
-import HotDetail from '../web/user-detail'
 import Wish from '../web/wish'
 import Shop from '../web/shop'
 import MyHome from '../web/myHome'
 import Help from '../web/help'
-import HelpDetail from '../web/help-detail'
 import Drift from '../web/drift'
-import NotFound from '../web/not-found'
+import Hot from '../web/hot'
+import HelpDetail from '../web/help-detail'
 import Welcome from '../web/welcome'
+import NotFound from '../web/not-found'
+import UserDetail from '../web/user-detail'
 Vue.use(Router)
 const router = new Router({
   mode: 'history',
@@ -65,6 +55,7 @@ const router = new Router({
             box: Hot
           },
           meta: {
+            keepAlive: true,
             requiresAuth: true
           }
         },
@@ -72,10 +63,11 @@ const router = new Router({
           path: '/hot/user/',
           name: 'HotDetail',
           components: {
-            box: HotDetail
+            box: UserDetail
           },
           props: { box: true },
           meta: {
+            keepAlive: true,
             requiresAuth: true
           }
         },

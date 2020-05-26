@@ -42,6 +42,7 @@ export default {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  @import "../common/stylus/index.styl"
   .welcome
     position: fixed
     top: 0
@@ -50,7 +51,7 @@ export default {
     bottom: 0
 
     .left
-      background-color: #1B91F3
+      background-color: $color-theme
       width: 44%
       height: 100%
       float: left

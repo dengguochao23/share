@@ -85,6 +85,9 @@ export default {
   created () {
     this._getAllGoodByUid(this.data.id)
   },
+  activated () {
+    console.log('acitveetd')
+  },
   methods: {
     onSelect (row) {
       this.$router.push({ name: 'helpDetail', params: { gid: row.gid } })

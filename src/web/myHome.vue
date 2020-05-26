@@ -712,6 +712,7 @@ export default {
     ...mapActions([
       'updateUser'
     ]),
+    // 购物车
     _getMyShopCart () {
       getMyShopCart(1).then((res) => {
         this.shopCarts = this.shopCarts.concat(res.data)
