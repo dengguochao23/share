@@ -95,19 +95,21 @@
     </div>
     <div class="intro search" ref="search">
       <div class="intro-container">
-          <div class="text">
-            <h1>我要求助</h1>
-            <p>通过该版块的搜索，你会找到你想要的物品，点击进去，按照你提示内容完成下一步内容</p>
-          </div>
-          <div class="img" >
-            <el-image :src="require('../common/img/search.png')" :lazy="true" :class="{'active': currentScroll > 1206}"></el-image>
-          </div>
+        <div class="text">
+          <h1>我要求助</h1>
+          <p>通过该版块的搜索，你会找到你想要的物品，点击进去，按照你提示内容完成下一步内容</p>
+        </div>
+        <div class="img" :class="{'active': isShowSearch == false }">
+          <el-image :src="require('../common/img/search.png')" :lazy="true"
+          ></el-image>
+        </div>
       </div>
     </div>
     <div class="intro hot" ref="hot">
       <div class="intro-container">
-        <div class="img" >
-          <el-image :src="require('../common/img/hot.png')" :lazy="true" :class="{'active': currentScroll > 1591 }"></el-image>
+        <div class="img" :class="{'active': isShowHot == false }">
+          <el-image :src="require('../common/img/hot.png')" :lazy="true"
+                    ></el-image>
         </div>
         <div class="text">
           <h1>热心住户</h1>
@@ -121,15 +123,17 @@
           <h1>他人求助</h1>
           <p>通过该版块的你可以看到别人发起的请求，助人为乐原来如此简单</p>
         </div>
-        <div class="img" >
-          <el-image :src="require('../common/img/help.png')" :lazy="true" :class="{'active': currentScroll > 1976}"></el-image>
+        <div class="img" :class="{'active': isShowHelp === false}">
+          <el-image :src="require('../common/img/help.png')" :lazy="true"
+                    ></el-image>
         </div>
       </div>
     </div>
     <div class="intro shop" ref="shop">
       <div class="intro-container">
-        <div class="img" >
-          <el-image :src="require('../common/img/shop.png')" :lazy="true" :class="{'active': currentScroll > 2361}"></el-image>
+        <div class="img" :class="{'active': isShowShop === false}">
+          <el-image :src="require('../common/img/shop.png')" :lazy="true"
+                    ></el-image>
         </div>
         <div class="text">
           <h1>兑换商城</h1>
@@ -143,6 +147,7 @@
 <script type="text/ecmascript-6">
 import Slider from '../components/slider'
 import { mapGetters } from 'vuex'
+
 export default {
   data () {
     return {
@@ -151,12 +156,16 @@ export default {
       step: 0,
       processScrollTop: '',
       currentScroll: 0,
+      isShowSearch: true,
+      isShowHelp: true,
+      isShowHot: true,
+      isShowShop: true,
       url: require('../common/img/search.png')
     }
   },
   computed: {
     nickname () {
-      return this.userInfo.account || 'sdfsdf'
+      return this.userInfo.account || 'name'
     },
     room () {
       return this.userInfo.building + '幢' + this.userInfo.unit + '单元' + this.userInfo.room
@@ -205,12 +214,21 @@ export default {
     },
     handleScroll (e) {
       this.currentScroll = e.target.scrollingElement.scrollTop
-      if (this.isShowProcess) {
-        return
-      }
-      if (this.currentScroll > this.processScrollTop) {
+      if (this.currentScroll > this.processScrollTop && this.currentScroll < 1206) {
         this.isShowProcess = true
         this.showProcess()
+      }
+      if (this.currentScroll > 1206 && this.currentScroll < 1591 && this.isShowSearch === true) {
+        this.isShowSearch = false
+      }
+      if (this.currentScroll > 1591 && this.currentScroll < 1976 && this.isShowHot === true) {
+        this.isShowHot = false
+      }
+      if (this.currentScroll > 1976 && this.currentScroll < 2361 && this.isShowHelp === true) {
+        this.isShowHelp = false
+      }
+      if (this.currentScroll > 2361 && this.isShowShop === true) {
+        this.isShowShop = false
       }
     },
     showProcess () {
@@ -328,7 +346,7 @@ export default {
             font-size: 30px
 
     .study
-      padding :80px 0px
+      padding: 80px 0px
       margin-top: 30px
       background-color: white
 
@@ -338,48 +356,60 @@ export default {
         margin: 0 auto
         display: flex
         flex-direction: column
+
         .title
-          font-size :40px
-          color :$color-theme
+          font-size: 40px
+          color: $color-theme
+
         .text
-          padding :10px 5px
-          font-size :$font-size-large
+          padding: 10px 5px
+          font-size: $font-size-large
+
         .process
-          width :100%
+          width: 100%
+
           .icon-wrapper
-            margin :20px 0px
-            display :flex
-            display :flex
-            justify-content :space-around
+            margin: 20px 0px
+            display: flex
+            display: flex
+            justify-content: space-around
+
             .icon
-              width :100px
-              height :100px
-              text-align :center
-              border-radius :100px
-              border :10px solid $color-theme
+              width: 100px
+              height: 100px
+              text-align: center
+              border-radius: 100px
+              border: 10px solid $color-theme
+
               .item
-                font-size :40px
+                font-size: 40px
                 line-height: 100px
+
     .intro
-      padding :80px 0px
+      padding: 80px 0px
+
       &.hot, &.shop
         background-color: white
+
       .intro-container
         margin: 0 auto
         width: $width-container
-        display :flex
-        justify-content :space-around
+        display: flex
+        justify-content: space-around
+
         .text
-          width :50%
+          width: 50%
+
           h1
-            margin-bottom : 20px
-            color :$color-theme
+            margin-bottom: 20px
+            color: $color-theme
+
         .img
-          width : 400px
-          height :225px
-          opacity :1
-          .active
-            animation : 0.88s  myImg
+          width: 400px
+          height: 225px
+          &.active
+            animation: 0.88s myImg
+
   @keyframes myImg
     0%
       transform: scale(1)

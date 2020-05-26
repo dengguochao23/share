@@ -80,7 +80,7 @@ export default {
   .list
     position :fixed
     top :150px
-    left :50px
+    left :5%
     list-style :none
     .list-item
       min-width :40px
