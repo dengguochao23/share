@@ -109,7 +109,7 @@
       <div class="intro-container">
         <div class="img" :class="{'active': isShowHot == false }">
           <el-image :src="require('../common/img/hot.png')" :lazy="true"
-                    ></el-image>
+          ></el-image>
         </div>
         <div class="text">
           <h1>热心住户</h1>
@@ -125,7 +125,7 @@
         </div>
         <div class="img" :class="{'active': isShowHelp === false}">
           <el-image :src="require('../common/img/help.png')" :lazy="true"
-                    ></el-image>
+          ></el-image>
         </div>
       </div>
     </div>
@@ -133,7 +133,7 @@
       <div class="intro-container">
         <div class="img" :class="{'active': isShowShop === false}">
           <el-image :src="require('../common/img/shop.png')" :lazy="true"
-                    ></el-image>
+          ></el-image>
         </div>
         <div class="text">
           <h1>兑换商城</h1>
@@ -147,7 +147,6 @@
 <script type="text/ecmascript-6">
 import Slider from '../components/slider'
 import { mapGetters } from 'vuex'
-
 export default {
   data () {
     return {
@@ -407,6 +406,7 @@ export default {
         .img
           width: 400px
           height: 225px
+
           &.active
             animation: 0.88s myImg
 

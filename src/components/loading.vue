@@ -29,6 +29,14 @@ export default {
         return ''
       }
     }
+  },
+  methods: {
+    hello () {
+      console.log('hello wol')
+    },
+    add () {
+      console.log('add dengguochao')
+    }
   }
 }
 </script>
