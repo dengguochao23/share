@@ -57,6 +57,7 @@ import { createHelps } from '../common/js/help'
 import { createGoods } from '../common/js/goods'
 import Nothing from '../components/nothing'
 import Drawer from '../components/drawer'
+import { loading } from '../components/loading'
 import { Message } from 'element-ui'
 export default {
   data () {
@@ -96,17 +97,12 @@ export default {
       })
     },
     _getAllWish (page) {
-      const instance = this.$createLoading({
-        $props: {
-          visible: true
-        }
-      })
-      instance.show()
+      loading(true)
       getAllWish(page).then((res) => {
         this.total = res.data.total
         this.page = res.data.page
         this.wishes = this.noramlWish(res.data.data)
-        instance.remove()
+        loading(false)
       })
     },
     noramlWish (data) {

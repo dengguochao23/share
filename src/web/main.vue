@@ -4,7 +4,7 @@
       <div class="head-top">
         <div class="top-container">
           <div class="head-left">
-            <p><i class="el-icon-position"></i>光大世纪城</p>
+            <p @click="openLoading"><i class="el-icon-position"></i>光大世纪城</p>
             <div class="client" v-if="isLog">
               <p>您好，</p>
               <p> {{userInfo.account}} </p>
@@ -85,6 +85,8 @@ import { getWeather } from '../api/weather'
 import { mapGetters, mapActions } from 'vuex'
 import Poppers from '../components/popper'
 import Foot from '../components/foot'
+import { loading } from '../components/loading'
+
 export default {
   data () {
     return {
@@ -150,6 +152,13 @@ export default {
     toLogout () {
       this.logout()
       this.$router.push('/welcome')
+    },
+    openLoading () {
+      loading(true)
+      setTimeout(() => {
+        console.log('dengguochao')
+        loading(false)
+      }, 3000)
     },
     ...mapActions({
       logout: 'logOut'

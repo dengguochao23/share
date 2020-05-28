@@ -9,27 +9,29 @@
 </template>
 
 <script type="text/ecmascript-6">
-export default {
+import Vue from 'vue'
+
+const Loading = {
   name: 'loading',
-  data () {
-    return {
-      loading: true
+  props: ['visible']
+}
+export default Loading
+
+let instanceCache
+export const loading = function (visible) {
+  const getInstance = () => {
+    const LoadingCtor = Vue.extend(Loading)
+    if (!instanceCache) {
+      instanceCache = new LoadingCtor()
+      instanceCache.$mount()
+      document.body.appendChild(instanceCache.$el)
     }
-  },
-  props: {
-    visible: {
-      type: Boolean,
-      default () {
-        return false
-      }
-    },
-    content: {
-      type: String,
-      default () {
-        return ''
-      }
-    }
+    return instanceCache
   }
+  const instance = getInstance()
+  Vue.nextTick(() => {
+    instance.visible = visible
+  })
 }
 </script>
 
