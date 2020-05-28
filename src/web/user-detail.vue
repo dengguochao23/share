@@ -86,7 +86,6 @@ export default {
     this._getAllGoodByUid(this.data.id)
   },
   activated () {
-    console.log('acitveetd')
   },
   methods: {
     onSelect (row) {

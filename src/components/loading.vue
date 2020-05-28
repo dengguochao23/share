@@ -29,27 +29,20 @@ export default {
         return ''
       }
     }
-  },
-  methods: {
-    hello () {
-      console.log('hello wol')
-    },
-    add () {
-      console.log('add dengguochao')
-    }
   }
 }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-@import "../common/stylus/index.styl"
+  @import "../common/stylus/index.styl"
   .loading
     position: fixed
     top: 0
     left: 0
     right: 0
     bottom: 0
-    z-index :1000
+    z-index: 1000
+
     .cover
       width: 100%
       height 100%
@@ -59,22 +52,25 @@ export default {
       position: absolute
       top: 0
       left: 0
-      overflow-y :hidden !important
+      overflow-y: hidden !important
+
     .loading-container
       position: absolute
       top: 50%
-      transform :translate(-50%,-50%)
+      transform: translate(-50%, -50%)
       left: 50%
       background-color: white
       width: 250px
       height: 150px
       z-index: 1002
       border: 5px solid $color-theme
-      border-radius :10px
-      text-align :center
+      border-radius: 10px
+      text-align: center
+
       .gif
-        margin-top :25px
+        margin-top: 25px
+
       .text
-        color :$color-theme
-        font-size :$font-size-large-x
+        color: $color-theme
+        font-size: $font-size-large-x
 </style>
