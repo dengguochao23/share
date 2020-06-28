@@ -20,7 +20,10 @@ const router = new Router({
   routes: [
     {
       path: '*',
-      component: NotFound
+      component: NotFound,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/',

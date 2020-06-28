@@ -86,7 +86,6 @@ import { mapGetters, mapActions } from 'vuex'
 import Poppers from '../components/popper'
 import Foot from '../components/foot'
 import { loading } from '../components/loading'
-
 export default {
   data () {
     return {
@@ -105,7 +104,7 @@ export default {
     ])
   },
   created () {
-    this.normalAir()
+    this._getLocation()
   },
   methods: {
     home () {
@@ -124,8 +123,8 @@ export default {
       this.$router.push('/shop')
       this.select = 3
     },
-    normalAir () {
-      getWeather().then((res) => {
+    normalAir (province, city) {
+      getWeather(province, city).then((res) => {
         let data = res.data
         this.temp = data.temp
         this.air = data.air
@@ -156,9 +155,20 @@ export default {
     openLoading () {
       loading(true)
       setTimeout(() => {
-        console.log('dengguochao')
         loading(false)
       }, 3000)
+    },
+    _getLocation () {
+      let url = 'https://apis.map.qq.com/ws/location/v1/ip?key=UBNBZ-JSO6X-AUW4A-Z4FS2-447BT-H6BFG&&output=jsonp'
+      const jsonp = require('jsonp')
+      jsonp(url, null, (err, data) => {
+        if (err) {
+        } else {
+          let city = data.result.ad_info.city
+          let province = data.result.ad_info.province
+          this.normalAir(province, city)
+        }
+      })
     },
     ...mapActions({
       logout: 'logOut'
