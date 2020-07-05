@@ -43,6 +43,7 @@
 
 <script type="text/ecmascript-6">
 import { mapActions } from 'vuex'
+import { Message } from 'element-ui'
 export default {
   data () {
     return {
@@ -67,9 +68,7 @@ export default {
           this.toLogin(info).then((res) => {
             this.$router.push('/home')
           }).catch((rej) => {
-            this.$alert(rej.meg, '提示', {
-              confirmButtonText: '确定'
-            })
+            Message.error('账号或者密码是错误的')
           })
         }
       })

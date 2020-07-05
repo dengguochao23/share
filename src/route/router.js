@@ -40,6 +40,7 @@ const router = new Router({
             box: Home
           },
           meta: {
+            keepAlive: true,
             requiresAuth: true
           }
         },
@@ -49,6 +50,7 @@ const router = new Router({
             box: MyHome
           },
           meta: {
+            keepAlive: true,
             requiresAuth: true
           }
         },
@@ -70,7 +72,6 @@ const router = new Router({
           },
           props: { box: true },
           meta: {
-            keepAlive: true,
             requiresAuth: true
           }
         },
@@ -80,6 +81,7 @@ const router = new Router({
             box: Wish
           },
           meta: {
+            keepAlive: true,
             requiresAuth: true
           }
         },
@@ -89,6 +91,7 @@ const router = new Router({
             box: Shop
           },
           meta: {
+            keepAlive: true,
             requiresAuth: true
           }
         },
@@ -98,6 +101,7 @@ const router = new Router({
             box: Help
           },
           meta: {
+            keepAlive: true,
             requiresAuth: true
           }
         },
@@ -118,6 +122,7 @@ const router = new Router({
             box: Drift
           },
           meta: {
+            keepAlive: true,
             requiresAuth: true
           }
         }
@@ -135,8 +140,17 @@ router.beforeEach((to, from, next) => {
   let token = window.localStorage.getItem('token')
   if (to.meta.requiresAuth) {
     if (token) {
-      store.dispatch('getUser')
-      next()
+      store.dispatch('getUser').then(() => {
+        next()
+      }).catch(() => {
+        store.dispatch('logOut')
+        next({
+          path: '/welcome',
+          query: {
+            redirect: to.fullPath
+          }
+        })
+      })
     } else {
       store.dispatch('logOut')
       next({

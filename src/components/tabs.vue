@@ -1,7 +1,7 @@
 <template>
   <div class="tabs" ref="tabs">
     <slot></slot>
-    <ul class="list">
+    <ul class="list" ref="list">
       <li class="list-item" :class="{active:current===index}" @click.stop="onScroll(index)" v-for="(item,index) in tabs" :key="index">{{item}}</li>
     </ul>
   </div>
@@ -25,12 +25,17 @@ export default {
     }
   },
   mounted () {
+    this.initStyle()
     setTimeout(() => {
       this.initScroll()
       window.addEventListener('scroll', this.handleScroll)
     }, 500)
   },
   methods: {
+    initStyle () {
+      let offsetWidth = (this.$root.$el.clientWidth - this.$parent.$el.clientWidth) / 2 - this.$refs.list.clientWidth
+      this.$refs.list.style.left = offsetWidth + 'px'
+    },
     initScroll () {
       this.scrollTop = []
       let childs = this.$refs.tabs.children
@@ -80,7 +85,7 @@ export default {
   .list
     position :fixed
     top :150px
-    left :5%
+    left: 20px
     list-style :none
     .list-item
       min-width :40px

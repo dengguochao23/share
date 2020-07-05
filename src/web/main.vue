@@ -159,7 +159,7 @@ export default {
       }, 3000)
     },
     _getLocation () {
-      let url = 'https://apis.map.qq.com/ws/location/v1/ip?key=UBNBZ-JSO6X-AUW4A-Z4FS2-447BT-H6BFG&&output=jsonp'
+      const url = 'https://apis.map.qq.com/ws/location/v1/ip?key=UBNBZ-JSO6X-AUW4A-Z4FS2-447BT-H6BFG&&output=jsonp'
       const jsonp = require('jsonp')
       jsonp(url, null, (err, data) => {
         if (err) {
