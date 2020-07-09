@@ -226,7 +226,7 @@ export default {
       inner.style.transform = `translate3d(${this.ballLeft}px,0, 0)`
     },
     droping (el, done) {
-      this._reflow = document.body.offsetHeight // 重新计算流浪器高度
+      this._reflow = document.body.offsetHeight // 重新计算小球高度
       const shopping = this.$refs.shopping.$el.clientWidth
       const shopCart = document.getElementById('shopping').getBoundingClientRect()
       const shopCartLeft = shopCart.left + (shopping / 2)

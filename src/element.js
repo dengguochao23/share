@@ -14,7 +14,6 @@ import {
   CarouselItem,
   Avatar,
   Divider,
-  Popover,
   Cascader,
   Table,
   TableColumn,
@@ -42,7 +41,6 @@ Vue.component(Carousel.name, Carousel)
 Vue.component(CarouselItem.name, CarouselItem)
 Vue.component(Avatar.name, Avatar)
 Vue.component(Divider.name, Divider)
-Vue.component(Popover.name, Popover)
 Vue.component(Cascader.name, Cascader)
 Vue.component(Table.name, Table)
 Vue.component(TableColumn.name, TableColumn)

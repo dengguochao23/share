@@ -6,10 +6,10 @@ module.exports = {
     plugins: [
       new webpack.ContextReplacementPlugin(
         /moment[/\\]locale$/,
-        /de|fr|hu/
+        /zh-cn/
       ),
       new CompressionPlugin({
-        test: /\.(js|css|html)$/,
+        test: /\.(js|css|html|svg)$/,
         threshold: 10240,
         minRatio: 0.8,
         algorithm: 'gzip'

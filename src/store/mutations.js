@@ -7,9 +7,6 @@ const mutations = {
   [types.USERINFO]: (state, info) => {
     state.userInfo = info
   },
-  [types.LOGINSTATUS]: (state, bool) => {
-    state.loginStatus = bool
-  },
   [types.MYSHOP]: (state, myShop) => {
     state.myShop = myShop
   }

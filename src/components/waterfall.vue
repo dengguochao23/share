@@ -5,7 +5,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-const GEP = 20
+const GEP = 20 // 每张图片的间隔
 export default {
   props: {
     data: {
@@ -26,7 +26,7 @@ export default {
       let fallChildren = fallParent.children
       let imgWidth = 215
       let gep = GEP
-      let cols = Math.floor(fallParent.clientWidth / imgWidth)
+      let cols = Math.floor(fallParent.clientWidth / imgWidth) // 计算出多少列
       let boxHeightArray = []
       for (let i = 0; i < fallChildren.length; i++) {
         if (i < cols) {
@@ -48,6 +48,7 @@ export default {
       }
       this.initHight(boxHeightArray)
     },
+    // 这是要边框有合适的高度
     initHight (arr) {
       let maxHeight = Math.max.apply(null, arr)
       let finallyHeight = maxHeight + 100

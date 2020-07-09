@@ -9,7 +9,6 @@ export const toLogin = function ({ commit }, info) {
       if (res.status === 200) {
         let token = res.data.token
         commit(types.TOKEN, token)
-        commit(types.LOGINSTATUS, true)
         window.localStorage.setItem('token', token)
         instance.defaults.headers.common['Authorization'] = `Bearer ` + token
         resolve(token)
