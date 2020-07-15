@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div class="head">
+    <div class="head" data-intro="这是目录栏，你可以快速去到你想去的地方，同时你查看实时本地天气">
       <div class="head-top">
         <div class="top-container">
           <div class="head-left">
@@ -76,6 +76,7 @@
       </div>
     </div>
     <router-view class="box" name="box"></router-view>
+    <guide ref="guide"></guide>
     <foot></foot>
   </div>
 </template>
@@ -86,13 +87,15 @@ import { mapGetters, mapActions } from 'vuex'
 import Poppers from '../components/popper'
 import Foot from '../components/foot'
 import { loading } from '../components/loading'
+import Guide from '../components/guide'
 export default {
   data () {
     return {
       select: 0,
       temp: {},
       air: {},
-      color: ''
+      color: '',
+      step: 0
     }
   },
   computed: {
@@ -105,6 +108,14 @@ export default {
   },
   created () {
     this._getLocation()
+  },
+  mounted () {
+    if (!window.localStorage.getItem('guide')) {
+      this.$nextTick(() => {
+        let that = this
+        this.$refs.guide.start(that)
+      })
+    }
   },
   methods: {
     home () {
@@ -176,7 +187,8 @@ export default {
   },
   components: {
     Poppers,
-    Foot
+    Foot,
+    Guide
   }
 }
 </script>
@@ -184,17 +196,19 @@ export default {
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "../common/stylus/variable.styl"
   .main
-    width :100vw
-    height:100%
+    width: 100vw
+    height: 100%
+
     .head
-      width :100vw
+      width: 100vw
       border-bottom: 1px solid $color-background-d
       position: fixed
       top: 0
       left: 0
       right: 0
       background-color: #F9F9F9
-      z-index :999
+      overflow :hidden
+      z-index : 10
       .head-top
         background-color: #F9F9F9
         height: 31px
@@ -304,9 +318,34 @@ export default {
                   font-size: $font-size-medium
                   text-align: center
 
+    .cover
+      position: fixed
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      background: rgba(5, 5, 5, 1)
+      opacity: 0.5
+      z-index :998
+    .intro
+      min-width :300px
+      min-height :170px
+      z-index :998
+      background-color: white
+      border :1px solid red
+      position :fixed
+      top: 150px
+      left :400px
+      border-radius :5px
+      display :flex
+      flex-direction :column
+      justify-content :space-around
+      align-items :center
+      padding :15px
     .box
-      left :0
-      right :0
-      height :100%
-      margin-top :111px
+      left: 0
+      right: 0
+      height: 100%
+      margin-top: 111px
+      z-index :-1
 </style>

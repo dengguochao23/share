@@ -3,6 +3,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import Vue from 'vue'
 import {
   Button,
+  ButtonGroup,
   Input,
   Form,
   FormItem,
@@ -30,6 +31,7 @@ import {
 } from 'element-ui'
 
 Vue.component(Button.name, Button)
+Vue.component(ButtonGroup.name, ButtonGroup)
 Vue.component(Input.name, Input)
 Vue.component(Form.name, Form)
 Vue.component(FormItem.name, FormItem)

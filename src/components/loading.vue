@@ -1,5 +1,5 @@
 <template>
-  <div class="loading" v-if="visible" ref="load">
+  <div class="loading" v-if="visible">
     <div class="cover"></div>
     <div class="loading-container">
       <img class="gif" width="50px" height="50px" :src="require('../common/img/loading.gif')" alt="">
@@ -65,7 +65,7 @@ export const loading = function (visible) {
       width: 250px
       height: 150px
       z-index: 1002
-      border: 5px solid $color-theme
+      border: 2px solid $color-theme
       border-radius: 10px
       text-align: center
 
