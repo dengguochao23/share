@@ -207,7 +207,7 @@ export default {
       left: 0
       right: 0
       background-color: #F9F9F9
-      overflow :hidden
+      /*overflow :hidden*/
       z-index : 10
       .head-top
         background-color: #F9F9F9
