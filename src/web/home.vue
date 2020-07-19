@@ -3,7 +3,7 @@
     <div class="slider">
       <div class="slider-box">
         <slider></slider>
-        <div class="info" data-intro="这是你的个人主页哦">
+        <div class="info" data-intro="这是你的个人主页哦" data-step="6">
           <div class="logo">
             <el-avatar shape="square" :size="100"
                        src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
@@ -41,22 +41,22 @@
     </div>
     <div class="section">
       <div class="container" >
-        <div class="item good" @click.stop="onHelp" data-intro="在这里你搜索找到你想要的东西">
+        <div class="item good" @click.stop="onHelp" data-step="2" data-intro="在这里你搜索找到你想要的东西">
           <i class="iconfont iconhands icon"></i>
           <el-divider></el-divider>
           <p class="title">我要求助</p>
         </div>
-        <div class="item hot" @click.stop="onHot" data-intro="在这里你可以看到那些热心的住户">
+        <div class="item hot" @click.stop="onHot" data-step="3" data-intro="在这里你可以看到那些热心的住户">
           <i class="iconfont iconremen icon"></i>
           <el-divider></el-divider>
           <p class="title">热心住户</p>
         </div>
-        <div class="item help" @click.stop="onWish" data-intro="在这里你可以看到人家的求助">
+        <div class="item help" @click.stop="onWish" data-step="4" data-intro="在这里你可以看到人家的求助">
           <i class="iconfont iconbangzhu icon"></i>
           <el-divider></el-divider>
           <p class="title">他人求助</p>
         </div>
-        <div class="item info" @click.stop="onDrift" data-intro="快速进入到你曾经帮助过和求助的历史记录">
+        <div class="item info" @click.stop="onDrift" data-step="5" data-intro="快速进入到你曾经帮助过和求助的历史记录">
           <i class="iconfont iconxingxing1 icon"></i>
           <el-divider></el-divider>
           <p class="title">我的足迹</p>

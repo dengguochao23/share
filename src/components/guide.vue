@@ -16,6 +16,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+// 用来存储获得的脚步
 let allIntroSteps = ''
 export default {
   data () {
@@ -41,6 +42,7 @@ export default {
       this.step += 1
       document.querySelector('html').style.overflowY = 'hidden'
     },
+    // 关闭窗口
     hide () {
       this.visable = !this.visable
       // 当关闭窗口的时候 还原所有样式
@@ -56,23 +58,26 @@ export default {
     _intro (that) {
       let temp = []
       let parent = that.$parent.$el
-      let steps = parent.querySelectorAll('*[data-intro]')
+      // 收集所有intro
+      let allIntro = parent.querySelectorAll('*[data-intro]')
       let standardWidth = window.innerWidth / 2
       let standarHeight = window.innerHeight / 2
-      for (let i = 0; i < steps.length; i++) {
-        let step = steps[i]
+      allIntro.forEach((intro) => {
+        let step = parseInt(intro.getAttribute('data-step'), 10)
         let t = {
-          'zIndex': document.defaultView.getComputedStyle(step, null).zIndex,
-          'top': step.getBoundingClientRect().top > standarHeight ? standarHeight + 100 : step.offsetHeight + 50,
-          'left': step.getBoundingClientRect().left > standardWidth ? standardWidth - 300 : step.getBoundingClientRect().left + 100,
-          'el': step,
-          'w': step.scrollWidth,
-          'h': step.offsetHeight,
-          'scroll': step.getBoundingClientRect().top > standarHeight ? step.getBoundingClientRect().top : 0,
-          'content': step.getAttribute('data-intro')
+          'zIndex': document.defaultView.getComputedStyle(intro, null).zIndex,
+          'top': intro.getBoundingClientRect().top > standarHeight ? standarHeight + 100 : intro.offsetHeight + 50,
+          'left': intro.getBoundingClientRect().left > standardWidth ? standardWidth - 300 : intro.getBoundingClientRect().left + 100,
+          'el': intro,
+          'scroll': intro.getBoundingClientRect().top > standarHeight ? intro.getBoundingClientRect().top : 0,
+          'content': intro.getAttribute('data-intro')
         }
-        temp.push(t)
-      }
+        if (step > 0) {
+          temp[step - 1] = t
+        } else {
+          temp.push(t)
+        }
+      })
       return temp
     },
     // 运行脚步

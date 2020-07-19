@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div class="head" data-intro="这是目录栏，你可以快速去到你想去的地方，同时你查看实时本地天气">
+    <div class="head" data-step="1" data-intro="这是目录栏，你可以快速去到你想去的地方，同时你查看实时本地天气">
       <div class="head-top">
         <div class="top-container">
           <div class="head-left">
@@ -112,8 +112,7 @@ export default {
   mounted () {
     if (!window.localStorage.getItem('guide')) {
       this.$nextTick(() => {
-        let that = this
-        this.$refs.guide.start(that)
+        this.$refs.guide.start(this)
       })
     }
   },
