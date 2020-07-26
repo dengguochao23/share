@@ -18,7 +18,7 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus">
   @import "../common/stylus/index.styl"
   .notFound
     position :fixed

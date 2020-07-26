@@ -1,6 +1,5 @@
-import '../theme/index.css'
-import 'element-ui/lib/theme-chalk/index.css'
 import Vue from 'vue'
+// import 'element-ui/lib/theme-chalk/index.css'
 import {
   Button,
   ButtonGroup,
@@ -30,8 +29,7 @@ import {
   CollapseItem
 } from 'element-ui'
 
-Vue.component(Button.name, Button)
-Vue.component(ButtonGroup.name, ButtonGroup)
+Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 }
 Vue.component(Input.name, Input)
 Vue.component(Form.name, Form)
 Vue.component(FormItem.name, FormItem)
@@ -56,3 +54,6 @@ Vue.component(Radio.name, Radio)
 Vue.component(RadioGroup.name, RadioGroup)
 Vue.component(Collapse.name, Collapse)
 Vue.component(CollapseItem.name, CollapseItem)
+Vue.use(Button)
+// Vue.component(Button.name, Button)
+Vue.component(ButtonGroup.name, ButtonGroup)

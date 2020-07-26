@@ -40,23 +40,23 @@
       </div>
     </div>
     <div class="section">
-      <div class="container" >
-        <div class="item good" @click.stop="onHelp" data-step="2" data-intro="在这里你搜索找到你想要的东西">
+      <div class="section-wrapper" >
+        <div class="items good" @click.stop="onHelp" data-step="2" data-intro="在这里你搜索找到你想要的东西">
           <i class="iconfont iconhands icon"></i>
           <el-divider></el-divider>
           <p class="title">我要求助</p>
         </div>
-        <div class="item hot" @click.stop="onHot" data-step="3" data-intro="在这里你可以看到那些热心的住户">
+        <div class="items hots" @click.stop="onHot" data-step="3" data-intro="在这里你可以看到那些热心的住户">
           <i class="iconfont iconremen icon"></i>
           <el-divider></el-divider>
           <p class="title">热心住户</p>
         </div>
-        <div class="item help" @click.stop="onWish" data-step="4" data-intro="在这里你可以看到人家的求助">
+        <div class="items helps" @click.stop="onWish" data-step="4" data-intro="在这里你可以看到人家的求助">
           <i class="iconfont iconbangzhu icon"></i>
           <el-divider></el-divider>
           <p class="title">他人求助</p>
         </div>
-        <div class="item info" @click.stop="onDrift" data-step="5" data-intro="快速进入到你曾经帮助过和求助的历史记录">
+        <div class="items infos" @click.stop="onDrift" data-step="5" data-intro="快速进入到你曾经帮助过和求助的历史记录">
           <i class="iconfont iconxingxing1 icon"></i>
           <el-divider></el-divider>
           <p class="title">我的足迹</p>
@@ -248,7 +248,6 @@ export default {
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "../common/stylus/variable.styl"
   .home
-
     .slider
       background: $color-theme
       height: 500px
@@ -303,15 +302,15 @@ export default {
       width: 100%
       margin-top: 30px
 
-      .container
+      .section-wrapper
         width: 60%
         margin: 0 auto
         border-radius: 5px
         display: flex
-        justify-content: space-around
-        padding: 50px 80px 50px 80px
-
-        .item
+        align-items :center
+        justify-content :space-between
+        padding: 50px 20px 50px 20px
+        .items
           width: 160px
           height: 200px
           border: 1px solid #cccccc
@@ -327,13 +326,13 @@ export default {
           &.good
             background-color: $color-theme
 
-          &.hot
+          &.hots
             background-color: #F56C6C
 
-          &.help
+          &.helps
             background-color: #E6A23C
 
-          &.info
+          &.infos
             background-color: #909399
 
           .icon

@@ -5,5 +5,5 @@
     </keep-alive>
   </div>
 </template>
-<style lang="stylus">
+<style scoped lang="stylus">
 </style>

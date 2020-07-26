@@ -1,18 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Main from '../web/main.vue'
-import Home from '../web/home'
 import store from '../store/index'
-import Wish from '../web/wish'
-import Shop from '../web/shop'
-import MyHome from '../web/myHome'
-import Help from '../web/help'
-import Drift from '../web/drift'
-import Hot from '../web/hot'
-import HelpDetail from '../web/help-detail'
-import Welcome from '../web/welcome'
-import NotFound from '../web/not-found'
-import UserDetail from '../web/user-detail'
+import Main from '../web/main'
+const Home = () => import(/* webpackChunkName: "home" */ '../web/home')
+const MyHome = () => import(/* webpackChunkName: "home" */ '../web/myHome')
+const Shop = () => import(/* webpackChunkName: "shop" */ '../web/shop.vue')
+const NotFound = () => import(/* webpackChunkName: "notFound" */ '../web/not-found')
+const Help = () => import(/* webpackChunkName: "help" */'../web/help')
+const HelpDetail = () => import(/* webpackChunkName: "help" */'../web/help-detail')
+const Drift = () => import(/* webpackChunkName: "drift" */'../web/drift')
+const Welcome = () => import(/* webpackChunkName: "welcome" */'../web/welcome')
+const Hot = () => import(/* webpackChunkName: "hot" */'../web/hot')
+const UserDetail = () => import(/* webpackChunkName: "hot" */'../web/user-detail')
+const Wish = () => import(/* webpackChunkName: "wish" */ '../web/wish')
 Vue.use(Router)
 const router = new Router({
   mode: 'history',

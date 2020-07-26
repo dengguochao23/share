@@ -78,17 +78,10 @@ export default {
   },
   methods: {
     onSelect (sid) {
-      const instance = this.$createLoading({
-        $props: {
-          visible: true
-        }
-      })
-      instance.show()
       getAllWishBySid(sid, this.page).then((res) => {
         this.total = res.data.total
         this.page = res.data.page
         this.wishes = this.noramlWish(res.data.data)
-        instance.remove()
       })
     },
     _getAllSubs () {
