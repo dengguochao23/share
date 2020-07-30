@@ -10,7 +10,7 @@
           </div>
           <div class="status-container" v-if="status===1">
             <p class="title">用户审核</p>
-            <el-button @click.stop="onCancalDrift" class="but" type="danger">撤销</el-button>
+            <el-button @click.stop="onCancalDrift(gid)" class="but" type="danger">撤销</el-button>
           </div>
           <div class="status-container" v-if="status===3">
             <p class="title">物品领取</p>
@@ -113,8 +113,10 @@ import { getGoodByGid } from '../api/goods'
 import { createGoods } from '../common/js/goods'
 import { createComment } from '../common/js/comment'
 import { handle } from '../common/js/mixin'
-import { writeComment, getCommentByGid } from '../api/comment'
+import { getCommentByGid } from '../api/comment'
 import Process from '../components/process'
+import { noramlArray } from '../common/js/util'
+
 export default {
   mixins: [handle],
   data () {
@@ -163,29 +165,13 @@ export default {
     },
     __getGoodComment (gid) {
       getCommentByGid(gid).then((res) => {
-        this.comments = this.normalComment(res.data)
+        let normalComment = noramlArray(createComment)
+        this.comments = normalComment(res.data)
       })
-    },
-    normalComment (data) {
-      let temp = []
-      data.forEach((d) => {
-        temp.push(createComment(d))
-      })
-      return temp
     },
     onOpenComment (gid) {
       this.dialogFormComment = true
       this.gid = gid
-    },
-    onSubmitComment (form) {
-      this.$refs[form].validate((valid) => {
-        if (valid) {
-          writeComment(this.gid, this.comment.star, this.comment.content).then((res) => {
-            this.dialogFormComment = false
-            this.__checkDriftById(this.gid)
-          })
-        }
-      })
     }
   },
   components: {

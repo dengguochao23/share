@@ -158,8 +158,7 @@ export default {
       isShowSearch: true,
       isShowHelp: true,
       isShowHot: true,
-      isShowShop: true,
-      url: require('../common/img/search.png')
+      isShowShop: true
     }
   },
   computed: {

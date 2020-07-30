@@ -5,25 +5,25 @@
         <div class="cover"></div>
         <div class="user-info">
           <el-avatar shape="square" :size="100"
-                     :src="data.image"></el-avatar>
-          <p class="nickname">{{data.nickname}}</p>
-          <p class="room">房号：{{data.building}}幢{{data.unit}}单元{{data.room}}</p>
-          <p class="mobile">电话：{{data.mobile || '无'}}</p>
-          <p class="email">邮箱：{{data.email || '无'}}</p>
+                     :src="user.image"></el-avatar>
+          <p class="nickname">{{user.nickname}}</p>
+          <p class="room">房号：{{user.building}}幢{{user.unit}}单元{{user.room}}</p>
+          <p class="mobile">电话：{{user.mobile || '无'}}</p>
+          <p class="email">邮箱：{{user.email || '无'}}</p>
           <div class="have">
             <div class="item">
               <p class="name">物品</p>
-              <p class="num">{{data.goods}}</p>
+              <p class="num">{{user.goods}}</p>
             </div>
             <div class="item">
               <p class="name">7豆</p>
-              <p class="num">{{data.count}}</p>
+              <p class="num">{{user.count}}</p>
             </div>
           </div>
         </div>
       </div>
       <div class="goods">
-        <p class="title">{{data.nickname}}的物品</p>
+        <p class="title">{{user.nickname}}的物品</p>
         <el-table
           :data="tableData"
           style="width: 100%"
@@ -67,11 +67,13 @@
 <script type="text/ecmascript-6">
 import { getGoodsByUid } from '../api/goods'
 import { createGoods } from '../common/js/goods'
+import { noramlArray } from '../common/js/util'
 
 export default {
   data () {
     return {
-      tableData: []
+      tableData: [],
+      user: {}
     }
   },
   props: {
@@ -83,9 +85,8 @@ export default {
     }
   },
   created () {
+    this.user = this.data
     this._getAllGoodByUid(this.data.id)
-  },
-  activated () {
   },
   methods: {
     onSelect (row) {
@@ -93,15 +94,9 @@ export default {
     },
     _getAllGoodByUid (uid) {
       getGoodsByUid(uid).then((res) => {
-        this.tableData = this.normalGoods(res.data)
+        let normalGoods = noramlArray(createGoods)
+        this.tableData = normalGoods(res.data)
       })
-    },
-    normalGoods (data) {
-      let temp = []
-      data.forEach((i) => {
-        temp.push(createGoods(i))
-      })
-      return temp
     }
   }
 }

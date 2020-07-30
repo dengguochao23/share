@@ -144,7 +144,6 @@ function createBalls () {
 export default {
   data () {
     return {
-      ballurl: 'https://img30.360buyimg.com/n1//jfs/t1/94787/15/9690/145517/5e122566E8676ef07/f014612d065cd9d5.jpg',
       fit: 'fit',
       vegetables: [],
       fruit: [],

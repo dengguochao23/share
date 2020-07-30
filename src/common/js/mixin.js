@@ -1,4 +1,5 @@
 import { checkDriftByid, createDriftFromHelper, cancalDriftByid } from '../../api/drift'
+import { writeComment } from '../../api/comment'
 export const handle = {
   data () {
     return {
@@ -24,8 +25,8 @@ export const handle = {
         this.step = 1
       })
     },
-    onCancalDrift () {
-      cancalDriftByid(this.gid).then((res) => {
+    onCancalDrift (gid) {
+      cancalDriftByid(gid).then((res) => {
         this.__checkDriftById(this.gid)
       })
     },
@@ -65,6 +66,17 @@ export const handle = {
         }
       }).catch((e) => {
         this.status = 0
+      })
+    },
+    // 提交评论
+    onSubmitComment (form) {
+      this.$refs[form].validate((valid) => {
+        if (valid) {
+          writeComment(this.gid, this.comment.star, this.comment.content).then((res) => {
+            this.dialogFormComment = false
+            this.__checkDriftById(this.gid)
+          })
+        }
       })
     }
   }

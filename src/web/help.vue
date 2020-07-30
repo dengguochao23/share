@@ -67,6 +67,7 @@
 <script type="text/ecmascript-6">
 import { searchGood } from '../api/search'
 import { createGoods } from '../common/js/goods'
+import { noramlArray } from '../common/js/util'
 import { Message } from 'element-ui'
 export default {
   data () {
@@ -106,15 +107,9 @@ export default {
         this.tableData = []
         this.resultName = data.name
         this.totalNum = data.total
-        this.tableData = this.normalResult(data.data)
+        let normalResult = noramlArray(createGoods)
+        this.tableData = normalResult(data.data)
       })
-    },
-    normalResult (data) {
-      let temp = []
-      data.forEach((d) => {
-        temp.push(createGoods(d))
-      })
-      return temp
     },
     onSelect (row) {
       this.$router.push({ name: 'helpDetail', params: { gid: row.gid } })

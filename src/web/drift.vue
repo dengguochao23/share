@@ -55,7 +55,7 @@
               <div class="status">{{item.req}}</div>
               <div class="control">
                 <div class="helper" v-if="item.youare==='helper'">
-                  <el-button style="margin: 0 ;width: 100px" v-if="item.pending===1" type="danger">撤销</el-button>
+                  <el-button style="margin: 0 ;width: 100px" v-if="item.pending===1" type="danger" @click.stop="onCancalDrift(item.id)">撤销</el-button>
                   <el-button style="margin: 0 ;width: 100px" v-if="item.pending===6" @click.stop="onOpenComment(item.gid)">评价</el-button>
                 </div>
                 <div class="sharer" v-else>
@@ -115,9 +115,11 @@ import Nothing from '../components/nothing'
 import Popers from '../components/popper'
 import { createPending } from '../common/js/pending'
 import { pending, handlePending } from '../api/drift'
-import { writeComment } from '../api/comment'
+import { handle } from '../common/js/mixin'
 import { Message } from 'element-ui'
+import { noramlArray } from '../common/js/util'
 export default {
+  mixins: [handle],
   data () {
     return {
       imgSrc: 'http://pic.sooshong.com/picture/userpic2/2015-4-14/68923320154141548138.jpg',
@@ -177,16 +179,10 @@ export default {
     // pending 的数据处理
     _pending (page, type) {
       pending(page, type).then((res) => {
-        this.pending = this.normalPending(res.data.data)
+        let normalPending = noramlArray(createPending)
+        this.pending = normalPending(res.data.data)
         this.total = res.data.total
       })
-    },
-    normalPending (data) {
-      let temp = []
-      data.forEach((d) => {
-        temp.push(createPending(d))
-      })
-      return temp
     },
     // 审核通过或者不通过
     onSubmitReview (id, gid, youare, pending) {
@@ -203,15 +199,6 @@ export default {
     onOpenComment (gid) {
       this.dialogFormComment = true
       this.gid = gid
-    },
-    onSubmitComment (form) {
-      this.$refs[form].validate((valid) => {
-        if (valid) {
-          writeComment(this.gid, this.comment.star, this.comment.content).then((res) => {
-            this.dialogFormComment = false
-          })
-        }
-      })
     }
   },
   components: {

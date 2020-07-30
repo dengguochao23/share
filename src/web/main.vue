@@ -75,7 +75,9 @@
         </div>
       </div>
     </div>
-    <router-view class="box" name="box"></router-view>
+    <keep-alive>
+      <router-view class="box" name="box"></router-view>
+    </keep-alive>
     <guide ref="guide"></guide>
     <foot></foot>
   </div>
@@ -173,6 +175,7 @@ export default {
       const jsonp = require('jsonp')
       jsonp(url, null, (err, data) => {
         if (err) {
+          this.normalAir('浙江省', '杭州市')
         } else {
           let city = data.result.ad_info.city
           let province = data.result.ad_info.province

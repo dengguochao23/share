@@ -303,6 +303,7 @@ import { getAllSubs, addMyGood, getMyGoods, upDataMyGood, handleMyGood } from '.
 import { getMyShopCart } from '../api/shop'
 import { createGoods } from '../common/js/goods'
 import { createHelps } from '../common/js/help'
+import { noramlArray } from '../common/js/util'
 import { Message } from 'element-ui'
 import Tabs from '../components/tabs'
 
@@ -484,15 +485,9 @@ export default {
     },
     _getMyGoods () {
       getMyGoods().then((res) => {
-        this.tableData = this.normalMyGoods(res.data)
+        let normalGoods = noramlArray(createGoods)
+        this.tableData = normalGoods(res.data)
       })
-    },
-    normalMyGoods (data) {
-      let temp = []
-      data.forEach((d) => {
-        temp.push(createGoods(d))
-      })
-      return temp
     },
     // 收集所有的子目录
     createSubs () {
@@ -626,15 +621,9 @@ export default {
     // wish部分
     _getMyWishes () {
       getMyHelp().then((res) => {
-        this.wishData = this.normalWishes(res.data)
+        let normalWishes = noramlArray(createHelps)
+        this.wishData = normalWishes(res.data)
       })
-    },
-    normalWishes (data) {
-      let temp = []
-      data.forEach((d) => {
-        temp.push(createHelps(d))
-      })
-      return temp
     },
     selectMyWish (row) {
       this.dialogFormWishes = true
