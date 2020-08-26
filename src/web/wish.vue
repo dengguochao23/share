@@ -60,6 +60,10 @@ import Drawer from '../components/drawer'
 import { loading } from '../components/loading'
 import { Message } from 'element-ui'
 import { noramlArray } from '../common/js/util'
+
+const normalWishes = noramlArray(createHelps)
+const normalGoods = noramlArray(createGoods)
+
 export default {
   data () {
     return {
@@ -82,7 +86,6 @@ export default {
       getAllWishBySid(sid, this.page).then((res) => {
         this.total = res.data.total
         this.page = res.data.page
-        let normalWishes = noramlArray(createHelps)
         this.wishes = normalWishes(res.data.data)
       })
     },
@@ -96,7 +99,6 @@ export default {
       getAllWish(page).then((res) => {
         this.total = res.data.total
         this.page = res.data.page
-        let normalWishes = noramlArray(createHelps)
         this.wishes = normalWishes(res.data.data)
         loading(false)
       })
@@ -104,7 +106,6 @@ export default {
     onSelectMyHelp (helper, name) {
       this.helper = helper
       checkMyGood(name).then((res) => {
-        let normalGoods = noramlArray(createGoods)
         this.goods = normalGoods(res.data)
       }).catch((rej) => {
         this.goods = []

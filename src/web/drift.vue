@@ -118,6 +118,7 @@ import { pending, handlePending } from '../api/drift'
 import { handle } from '../common/js/mixin'
 import { Message } from 'element-ui'
 import { noramlArray } from '../common/js/util'
+const normalPending = noramlArray(createPending)
 export default {
   mixins: [handle],
   data () {
@@ -179,7 +180,6 @@ export default {
     // pending 的数据处理
     _pending (page, type) {
       pending(page, type).then((res) => {
-        let normalPending = noramlArray(createPending)
         this.pending = normalPending(res.data.data)
         this.total = res.data.total
       })

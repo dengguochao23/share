@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../store/index'
 import Main from '../web/main'
+import Error from '../common/js/error'
+
 const Home = () => import(/* webpackChunkName: "home" */ '../web/home')
 const MyHome = () => import(/* webpackChunkName: "home" */ '../web/myHome')
 const Shop = () => import(/* webpackChunkName: "shop" */ '../web/shop.vue')
@@ -13,6 +15,8 @@ const Welcome = () => import(/* webpackChunkName: "welcome" */'../web/welcome')
 const Hot = () => import(/* webpackChunkName: "hot" */'../web/hot')
 const UserDetail = () => import(/* webpackChunkName: "hot" */'../web/user-detail')
 const Wish = () => import(/* webpackChunkName: "wish" */ '../web/wish')
+const error = new Error()
+error.init()
 Vue.use(Router)
 const router = new Router({
   mode: 'history',
@@ -163,5 +167,6 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
+  error.report()
 })
 export default router
