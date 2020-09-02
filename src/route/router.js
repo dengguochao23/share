@@ -167,6 +167,7 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
+  // 异常数据发送
   error.report()
 })
 export default router

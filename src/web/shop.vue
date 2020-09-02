@@ -17,7 +17,8 @@
           <span class="num">{{count}}</span>
         </div>
         <div class="my">
-          <el-button style="width: 250px;background: white;color: black" size="medium" type="primary" @click="toMyHome">进入我的主页
+          <el-button style="width: 250px;background: white;color: black" size="medium" type="primary" @click="toMyHome">
+            进入我的主页
           </el-button>
         </div>
       </div>
@@ -33,7 +34,8 @@
           <div class="img">
             <el-image style="width: 140px; height: 140px"
                       :src="item.image"
-                      :fit="fit"></el-image>
+                      :fit="fit"
+            ></el-image>
           </div>
           <div class="name">
             <p>{{item.name}}</p>
@@ -56,7 +58,8 @@
           <div class="img">
             <el-image style="width: 140px; height: 140px"
                       :src="item.image"
-                      :fit="fit"></el-image>
+                      :fit="fit"
+            ></el-image>
           </div>
           <div class="name">
             <p>{{item.name}}</p>
@@ -130,8 +133,10 @@ import Shopping from '../components/shopping'
 import { addClass, removeClass } from '../common/js/dom'
 import { getAllShopOfType, sellMyShop } from '../api/shop'
 import { Message } from 'element-ui'
+
 const BALL_LEN = 10 // 设置球子的数量
 const innerClsHook = 'inner-hook'
+
 function createBalls () {
   let balls = []
   for (let i = 0; i < BALL_LEN; i++) {
@@ -141,6 +146,7 @@ function createBalls () {
   }
   return balls
 }
+
 export default {
   data () {
     return {
@@ -313,11 +319,13 @@ export default {
     width: $width-container
     margin: 0px auto
     padding-top: 20px
+
     .head
       width: 100%
       height: 300px
       display: flex
       margin-bottom: 50px
+
       .info
         width: 300px
         border-top-left-radius: 10px
@@ -329,8 +337,10 @@ export default {
         flex-direction: column
         align-items: center
         color: white
+
       .info div
         margin-top: 10px
+
       .slider
         flex: 1
         background-color: white
@@ -339,16 +349,20 @@ export default {
         background: url("http://www.igarwin.com/static/img/introduce.8ba987dc.png")
         background-position: center;
         color: white
+
       .slider p:nth-child(1)
         margin: 90px 0 0 50px
         font-size: $font-size-large-xx
+
       .slider p:nth-child(2)
         margin: 30px 0 0 50px
+
     .shop
       width: 100%
       display: flex
       flex-wrap: wrap
       margin-bottom: 50px
+
       .item
         box-sizing: border-box
         padding: 0 20px
@@ -360,19 +374,25 @@ export default {
         margin-bottom: 12.5px
         position: relative
         overflow: hidden
+
         &.active
           box-shadow: 4px 5px 8px rgba(0, 0, 0, .1)
+
       .img
         text-align: center
         margin: 15px 0
+
       .name
-        display :flex
-        justify-content :space-between
+        display: flex
+        justify-content: space-between
+
         &.name p:nth-child(1)
           font-size: $font-size-large
           font-weight: 900
+
         &.name p:nth-child(2)
-          color : red
+          color: red
+
       .cover
         width: 100%
         height: 40px
@@ -384,6 +404,7 @@ export default {
         color: white
         line-height: 40px
         transition: all 0.3s
+
       .null
         position: absolute
         top: 0
@@ -392,33 +413,40 @@ export default {
         height: 100%
         background-color: rgba(255, 255, 255, 0.8);
         z-index: 999
+
         p
           text-align: center
           line-height: 230px
           font-size: $font-size-large-xx
           color: $color-theme
           font-weight: 900
+
       .item:nth-child(5)
         margin-right: 0
+
     .ball
       position: fixed
       z-index: 1000
       top: 0
       left: 0
       transition: all 0.88s cubic-bezier(0.275, -0.32, 0.885, 0.175)
+
       .inner
         width: 20px
         height: 20px
         border-radius: 50%
         transition: all 0.88s linear
+
       img
         width: 20px
         height: 20px
         border-radius: 50%
         animation: 0.88s shopImg
+
     .dialog
       .select-container
         display: flex
+
         .but
           display: block
           width: 20px
@@ -427,18 +455,24 @@ export default {
           text-align: center
           line-height: 20px
           cursor: pointer
+
           &.cut
             background-color: $color-theme-d
+
           &.add
             color: white
             background-color: $color-theme
+
         span
           margin: 0 10px
+
       .settle
         margin-top: 20px
         text-align: right
+
   .el-divider__text
     background-color: $color-background-d !important
+
   @keyframes shopImg
     0%
       transform: scale(2.5)

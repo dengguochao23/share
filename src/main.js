@@ -8,12 +8,12 @@ import './common/iconfont.css'
 import App from './App.vue'
 import { performaceData } from './common/js/util'
 Vue.config.productionTip = false
+
 new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app')
-
 window.addEventListener('load', function () {
   setTimeout(() => {
     performaceData()

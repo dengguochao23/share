@@ -10,6 +10,11 @@ export function noramlArray (fn) {
 }
 
 export const performaceData = function () {
+  let performance = window.performance || window.webkitPerformance || window.msPerformance || window.mozPerformance
+  // 如果浏览器不支持，直接不执行以下操作
+  if (performance === undefined) {
+    return false
+  }
   let timinObj = performance.timing
   let navigationObj = performance.navigation
   let params = {}
@@ -20,10 +25,11 @@ export const performaceData = function () {
   if (navigationObj.type === 0) {
     params.dns = Math.floor(timinObj.domainLookupEnd - timinObj.domainLookupStart) // dns查询时间
     params.tcp = Math.floor(timinObj.connectEnd - timinObj.connectStart) // tcp链接时间
-    params.paint = Math.floor(timinObj.responseEnd - timinObj.responseStart) // 响应时间
-    params.render = timinObj.domContentLoadedEventEnd - timinObj.navigationStart // dom解释时间
-    params.load = timinObj.loadEventEnd - timinObj.navigationStart // 首屏时间
-    params.white = Math.floor(timinObj.responseStart - timinObj.navigationStart) // 白屏时间
+    params.paint = Math.floor(timinObj.responseEnd - timinObj.responseStart) // request请求耗时
+    params.render = timinObj.domComplete - timinObj.domInteractive // dom树解释时间
+    params.domready = timinObj.domInteractive - timinObj.responseEnd // domready时间
+    params.load = timinObj.loadEventEnd - timinObj.fetchStart // 首屏时间
+    params.white = Math.floor(Date.now() - timinObj.navigationStart) // 白屏时间
     let args = ''
     // 拼成URL可以用的数
     for (let i in params) {
@@ -32,6 +38,7 @@ export const performaceData = function () {
       }
       args += `${i}=${params[i]}`
     }
+    // 解决跨域的问题
     let img = new Image(1, 1)
     let baseUrl = process.env.NODE_ENV === 'production' ? 'https://www.ifenghua.top/v1' : 'http://127.0.0.1:5000/v1'
     let src = baseUrl + '/performace' + `/${encodeURIComponent(args)}`
