@@ -172,15 +172,16 @@ export default {
     },
     _getLocation () {
       const url = 'https://apis.map.qq.com/ws/location/v1/ip?key=UBNBZ-JSO6X-AUW4A-Z4FS2-447BT-H6BFG&&output=jsonp'
-      const jsonp = require('jsonp')
-      jsonp(url, null, (err, data) => {
-        if (err) {
-          this.normalAir('浙江省', '杭州市')
-        } else {
-          let city = data.result.ad_info.city
-          let province = data.result.ad_info.province
-          this.normalAir(province, city)
-        }
+      import(/* webpackChunkName: "jsonp" */'jsonp').then(({ default: _jsonp }) => {
+        _jsonp(url, null, (err, data) => {
+          if (err) {
+            this.normalAir('浙江省', '杭州市')
+          } else {
+            let city = data.result.ad_info.city
+            let province = data.result.ad_info.province
+            this.normalAir(province, city)
+          }
+        })
       })
     },
     ...mapActions({
