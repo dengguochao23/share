@@ -16,7 +16,11 @@ const Hot = () => import(/* webpackChunkName: "hot" */'../web/hot')
 const UserDetail = () => import(/* webpackChunkName: "hot" */'../web/user-detail')
 const Wish = () => import(/* webpackChunkName: "wish" */ '../web/wish')
 const error = new Error()
-error.init()
+
+// 只有在生产环境的时候才进行错误监控
+if (process.env.NODE_ENV === 'production') {
+  error.init()
+}
 Vue.use(Router)
 const router = new Router({
   mode: 'history',

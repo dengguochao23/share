@@ -10,6 +10,10 @@ export function noramlArray (fn) {
 }
 
 export const performaceData = function () {
+  // 开发模式无需进行性能监控
+  if (process.env.NODE_ENV !== 'production') {
+    return false
+  }
   let performance = window.performance || window.webkitPerformance || window.msPerformance || window.mozPerformance
   // 如果浏览器不支持，直接不执行以下操作
   if (performance === undefined) {
