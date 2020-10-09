@@ -7,7 +7,7 @@
          ref="reg"
          v-on:mouseenter="onMouseEnter"
          v-on:mouseleave="onMouseLeave"
-         v-if="flag"
+         v-show="flag"
     >
       <i class="el-icon-arrow-left" @click="open_and_close"></i>
       <div class="title">用户注册</div>
@@ -15,14 +15,13 @@
         <img width="210px" :src="require('../common/img/logo.png')" alt="">
       </div>
       <el-form class="form" :model="formData" ref="formData" :rules="rules">
+        <el-form-item prop="email">
+          <el-input v-model="formData.email" placeholder="你的用户名"></el-input>
+        </el-form-item>
         <el-form-item
-          prop="email"
-          :rules="[
-              { required: true, message: '请输入邮箱地址', trigger: 'blur' },
-              { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
-             ]"
+          prop="nickname"
         >
-          <el-input v-model="formData.email" placeholder="用户名"></el-input>
+          <el-input v-model="formData.nickname" placeholder="你的昵称"></el-input>
         </el-form-item>
         <el-form-item prop="pass">
           <el-input type="password" placeholder="密码" v-model="formData.pass" autocomplete="off"></el-input>
@@ -70,6 +69,13 @@ export default {
       checked: true,
       flag: false,
       rules: {
+        email: [
+          { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+          { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+        ],
+        nickname: [
+          { validator: this.validateNickname, trigger: 'blur' }
+        ],
         pass: [
           { validator: this.validatePass, trigger: 'blur' }
         ],
@@ -80,6 +86,19 @@ export default {
     }
   },
   methods: {
+    validateNickname (rule, value, callback) {
+      const reg = /^[\u4e00-\u9fa5]+$/
+      const len = value.length
+      if (len > 1) {
+        if (reg.test(value) === true) {
+          callback()
+        } else {
+          callback(new Error('请输入全中文昵称'))
+        }
+      } else {
+        callback(new Error('请输入一字以上的昵称'))
+      }
+    },
     validatePass (rule, value, callback) {
       if (value === '') {
         callback(new Error('请输入密码'))
@@ -102,7 +121,7 @@ export default {
     submitForm (form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
-          registers(this.formData.email, this.formData.pass, 100, this.formData.building, this.formData.unit, this.formData.room).then(() => {
+          registers(this.formData.email, this.formData.pass, 100, this.formData.building, this.formData.unit, this.formData.room, this.formData.nickname).then(() => {
             Message({
               message: '注册成功，请重新登录',
               type: 'success',

@@ -14,7 +14,7 @@
             <el-form-item label="我的账号">
               <p>{{account}}<span style="margin-left: 30px"></span></p>
             </el-form-item>
-            <el-form-item label="我的昵称">
+            <el-form-item label="我的昵称" prop="nickname">
               <p v-if="isDisableNickname">{{nickname}}<span style="margin-left: 30px"><i class="el-icon-edit"
                                                                                          @click="isDisableNickname=!isDisableNickname"
                                                                                          style="cursor: pointer"></i></span>
@@ -309,16 +309,34 @@ import Tabs from '../components/tabs'
 
 export default {
   data () {
-    const validatePhone = (rule, value, callback) => {
-      let num = value.toString()
-      if (num.length === 11) {
-        checkUser('mobile', num).then(() => {
+    const validateNickname = (rule, value, callback) => {
+      const reg = /^[\u4e00-\u9fa5]+$/
+      const len = value.length
+      if (len > 1) {
+        if (reg.test(value) === true) {
           callback()
-        }).catch((e) => {
-          callback(new Error('有人使用过'))
-        })
+        } else {
+          callback(new Error('请输入全中文昵称'))
+        }
       } else {
-        callback(new Error('请输入11位手机号码'))
+        callback(new Error('请输入一字以上的昵称'))
+      }
+    }
+    const validatePhone = (rule, value, callback) => {
+      const reg = /^[1-9]\d*$|^0$/
+      if (reg.test(value) === true) {
+        let num = value.toString()
+        if (num.length === 11) {
+          checkUser('mobile', num).then(() => {
+            callback()
+          }).catch((e) => {
+            callback(new Error('有人使用过'))
+          })
+        } else {
+          callback(new Error('请输入11位手机号码'))
+        }
+      } else {
+        callback(new Error('请输入纯数字'))
       }
     }
     const validateEmail = (rule, value, callback) => {
@@ -347,6 +365,9 @@ export default {
       isDisableMob: true,
       isDisableEmail: true,
       infoRules: {
+        nickname: [
+          { validator: validateNickname, trigger: 'blur' }
+        ],
         mobile: [
           { required: true, message: '请输入您的电话！' },
           { type: 'string', message: '电话应该是数字' },

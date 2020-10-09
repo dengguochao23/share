@@ -5,25 +5,25 @@
         <div class="cover"></div>
         <div class="user-info">
           <el-avatar shape="square" :size="100"
-                     :src="user.image"></el-avatar>
-          <p class="nickname">{{user.nickname}}</p>
-          <p class="room">房号：{{user.building}}幢{{user.unit}}单元{{user.room}}</p>
-          <p class="mobile">电话：{{user.mobile || '无'}}</p>
-          <p class="email">邮箱：{{user.email || '无'}}</p>
+                     :src="data.image"></el-avatar>
+          <p class="nickname">{{data.nickname}}</p>
+          <p class="room">房号：{{data.building}}幢{{data.unit}}单元{{data.room}}</p>
+          <p class="mobile">电话：{{data.mobile || '无'}}</p>
+          <p class="email">邮箱：{{data.email || '无'}}</p>
           <div class="have">
             <div class="item">
               <p class="name">物品</p>
-              <p class="num">{{user.goods}}</p>
+              <p class="num">{{data.goods}}</p>
             </div>
             <div class="item">
               <p class="name">7豆</p>
-              <p class="num">{{user.count}}</p>
+              <p class="num">{{data.count}}</p>
             </div>
           </div>
         </div>
       </div>
       <div class="goods">
-        <p class="title">{{user.nickname}}的物品</p>
+        <p class="title">{{data.nickname}}的物品</p>
         <el-table
           :data="tableData"
           style="width: 100%"
@@ -72,8 +72,7 @@ import { noramlArray } from '../common/js/util'
 export default {
   data () {
     return {
-      tableData: [],
-      user: {}
+      tableData: []
     }
   },
   props: {
@@ -84,8 +83,7 @@ export default {
       }
     }
   },
-  created () {
-    this.user = this.data
+  mounted () {
     this._getAllGoodByUid(this.data.id)
   },
   methods: {
@@ -97,6 +95,11 @@ export default {
         let normalGoods = noramlArray(createGoods)
         this.tableData = normalGoods(res.data)
       })
+    }
+  },
+  watch: {
+    data (newData) {
+      this._getAllGoodByUid(newData.id)
     }
   }
 }

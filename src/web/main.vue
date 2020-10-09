@@ -53,7 +53,7 @@
                     <p>SO2</p>
                   </div>
                   <div class="single">
-                    <p style="margin-top: 23px">{{air.no2}}</p>
+                    <p style="çmargin-top: 23px">{{air.no2}}</p>
                     <p>NO2</p>
                   </div>
                   <div class="single">
@@ -138,8 +138,8 @@ export default {
     normalAir (province, city) {
       getWeather(province, city).then((res) => {
         let data = res.data
-        this.temp = data.temp
         this.air = data.air
+        this.temp = data.temp
         let aqiName = this.air['aqi_name']
         switch (aqiName) {
           case '良':

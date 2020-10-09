@@ -7,7 +7,7 @@
          v-on:mouseenter="onMouseEnter"
          v-on:mouseleave="onMouseLeave"
          class="login"
-         v-if="flag">
+         v-show="flag">
       <div class="title">欢迎登陆七享</div>
       <div class="logo">
         <img width="210px" :src="require('../common/img/logo.png')" alt="">

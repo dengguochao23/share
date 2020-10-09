@@ -8,4 +8,6 @@
 <script>
 </script>
 <style scoped lang="stylus">
+#app
+  font-family: Avenir, Helvetica, Arial, sans-serif;
 </style>
