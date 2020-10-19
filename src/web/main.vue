@@ -53,7 +53,7 @@
                     <p>SO2</p>
                   </div>
                   <div class="single">
-                    <p style="çmargin-top: 23px">{{air.no2}}</p>
+                    <p style="margin-top: 23px">{{air.no2}}</p>
                     <p>NO2</p>
                   </div>
                   <div class="single">
@@ -90,6 +90,7 @@ import Poppers from '../components/popper'
 import Foot from '../components/foot'
 import { loading } from '../components/loading'
 import Guide from '../components/guide'
+import { AMAP_KEY } from '../../config'
 export default {
   data () {
     return {
@@ -171,14 +172,16 @@ export default {
       }, 3000)
     },
     _getLocation () {
-      const url = 'https://apis.map.qq.com/ws/location/v1/ip?key=UBNBZ-JSO6X-AUW4A-Z4FS2-447BT-H6BFG&&output=jsonp'
+      // 采用高德地图的ip定位，解决ipv6地址不能读取定位
+      // 请自行去高德地图申请属于自己的key
+      const url = `https://restapi.amap.com/v3/ip?key=${AMAP_KEY}`
       import(/* webpackChunkName: "jsonp" */'jsonp').then(({ default: _jsonp }) => {
         _jsonp(url, null, (err, data) => {
           if (err) {
             this.normalAir('浙江省', '杭州市')
           } else {
-            let city = data.result.ad_info.city
-            let province = data.result.ad_info.province
+            let city = data.city || '杭州市'
+            let province = data.province || '浙江省'
             this.normalAir(province, city)
           }
         })

@@ -2,8 +2,8 @@ import axios from 'axios'
 import router from '../route/router'
 import store from '../store/index'
 export let instance = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? 'https://www.ifenghua.top/v1' : 'http://127.0.0.1:5000/v1'
-  // baseURL: 'https://www.ifenghua.top/v1'
+  // baseURL: process.env.NODE_ENV === 'production' ? 'https://www.ifenghua.top/v1' : 'http://127.0.0.1:5000/v1'
+  baseURL: 'https://www.ifenghua.top/v1'
 })
 axios.defaults.headers.common['Content-Type'] = 'application/json'
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
