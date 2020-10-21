@@ -191,19 +191,19 @@ export default {
   },
   methods: {
     toMyHome () {
-      this.$router.push('/myHome')
+      this.$router.push('/myHome').catch(err => err)
     },
     onHot () {
-      this.$router.push('/hot')
+      this.$router.push('/hot').catch(err => err)
     },
     onHelp () {
-      this.$router.push('/help')
+      this.$router.push('/help').catch(err => err)
     },
     onDrift () {
-      this.$router.push('/drift')
+      this.$router.push('/drift').catch(err => err)
     },
     onWish () {
-      this.$router.push('/wish')
+      this.$router.push('/wish').catch(err => err)
     },
     // 进度条展示
     initScroll () {
@@ -341,6 +341,7 @@ export default {
             font-size: 30px
 
     .study
+      width: 100%
       padding: 80px 0px
       margin-top: 30px
       background-color: white
@@ -381,6 +382,7 @@ export default {
                 line-height: 100px
 
     .intro
+      width: 100%
       padding: 80px 0px
 
       &.hot, &.shop

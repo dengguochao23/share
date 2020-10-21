@@ -121,19 +121,19 @@ export default {
   },
   methods: {
     home () {
-      this.$router.push('/home')
+      this.$router.push('/home').catch(err => err)
       this.select = 0
     },
     hot () {
-      this.$router.push('/hot')
+      this.$router.push('/hot').catch(err => err)
       this.select = 1
     },
     wish () {
-      this.$router.push('/wish')
+      this.$router.push('/wish').catch(err => err)
       this.select = 2
     },
     shop () {
-      this.$router.push('/shop')
+      this.$router.push('/shop').catch(err => err)
       this.select = 3
     },
     normalAir (province, city) {
@@ -163,7 +163,7 @@ export default {
     },
     toLogout () {
       this.logout()
-      this.$router.push('/welcome')
+      this.$router.push('/welcome').catch(err => err)
     },
     openLoading () {
       loading(true)
