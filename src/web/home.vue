@@ -147,6 +147,7 @@
 <script type="text/ecmascript-6">
 import Slider from '../components/slider'
 import { mapGetters } from 'vuex'
+import { debounce } from '../common/js/util'
 export default {
   data () {
     return {
@@ -208,7 +209,8 @@ export default {
     // 进度条展示
     initScroll () {
       this.processScrollTop = this.$refs.study.offsetTop - 300
-      window.addEventListener('scroll', this.handleScroll)
+      // debounce 函数防止滚动栏抖动
+      window.addEventListener('scroll', (event) => debounce(this.handleScroll(event), 800))
     },
     handleScroll (e) {
       this.currentScroll = e.target.scrollingElement.scrollTop

@@ -51,3 +51,16 @@ export const performaceData = function () {
     }, 100)
   }
 }
+
+// 防抖
+export function debounce (fun, ms = 1000) {
+  let timer
+  return function (...arg) {
+    if (timer) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(() => {
+      fun.apply(this, arg)
+    }, ms)
+  }
+}
