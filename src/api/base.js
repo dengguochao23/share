@@ -63,6 +63,7 @@ instance.interceptors.response.use(
             path: '/welcome',
             query: { redirect: router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
           })
+          removePending(error.response.config) // 用于输入账号密码错时，不能再次点击按钮，假如日后有更多的业务需求才考虑是否放开该设置
       }
     }
     return Promise.reject(error.response)
