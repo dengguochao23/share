@@ -170,7 +170,7 @@ export default {
       return this.userInfo.building + '幢' + this.userInfo.unit + '单元' + this.userInfo.room
     },
     helps () {
-      return this.userInfo.helps
+      return this.userInfo.wishes
     },
     count () {
       return this.userInfo.count

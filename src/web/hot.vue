@@ -50,7 +50,7 @@
         background
         layout="prev, pager, next"
         :total="totalNum"
-        :page-size = 10
+        :page-size = 20
         @next-click="onNextPage"
         @prev-click="onPrevPage"
         @current-change="onCurrentPage"

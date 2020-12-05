@@ -33,12 +33,12 @@ export function handleMyHelp (id, type) {
 
 export function getAllWish (page) {
   instance.defaults.auth = { username: window.localStorage.getItem('token') }
-  return instance.get(`/help/all/page=${page}`)
+  return instance.get(`/help/all/page=${page}&&per=10`)
 }
 
 export function getAllWishBySid (sid, page) {
   instance.defaults.auth = { username: window.localStorage.getItem('token') }
-  return instance.get(`/help/all/sid=${sid}&&page=${page}`)
+  return instance.get(`/help/all/sid=${sid}&&page=${page}&&per=10`)
 }
 
 export function checkMyGood (name) {
