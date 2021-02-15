@@ -412,7 +412,7 @@ export default {
         width: 100%
         height: 100%
         background-color: rgba(255, 255, 255, 0.8);
-        z-index: 999
+        z-index: 9
 
         p
           text-align: center
